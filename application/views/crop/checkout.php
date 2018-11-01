@@ -165,7 +165,7 @@
          handler.openIframe();
        }else if ($('#payment_options').val() == 'bank_transfer') {
          var ref = 'STG001'+Math.floor((Math.random() * 1000000000) + 1);
-         var transactionData = {amount: $('#final_total').val(), reference: ref, stage: 'one', crop_id:'<?php echo $crop[0]->id; ?>', status: 'pending', slot_amount: $('#slot').val(), payment_type: 'bank_transfer' };
+         var transactionData = {amount: $('#final_total').val(), reference: ref, crop_id:'<?php echo $crop[0]->id; ?>', status: 'Not Confirmed', slot_amount: $('#slot').val(), payment_type: 'bank_transfer' };
          $.post("<?php echo base_url('ajax_call/transaction'); ?>", transactionData, function(result){
          if (result && result != 'exceeded') {
            console.log(result);
@@ -174,7 +174,10 @@
              text: "your transaction ref is "+ref,
              type: "success"
            });
-          // location.href = '<?php //echo base_url("crops/thankyou/") ?>'+ result;
+           setTimeout(() => {
+             location.href = '<?php echo base_url("crops/thankyou/") ?>'+ result;
+           }, 1000);
+          
         }else {
            swal('Limit Exceeded', 'Your have exceeded the maximum number of slot per user', 'error');
         }

@@ -266,13 +266,17 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		foreach ($_POST as $key => $value) {
 		$$key = $value;
 		}
+		// print_r($_POST);
+		// die();
 		
 		$insertData = array(
-			"TransactionRef" => 1,
-			"Amount" => 10,
-			"PaymentType" => 'online',
-			"CropId" => 1,
-			"Slot" =>2,
+			"UserId" => $this->session->userdata("user_id"),
+			"TransactionRef" => 1,// $reference,
+			"Amount" => 1, // $amount,
+			"PaymentType" => 2, // $payment_type,
+			"CropId" => 3, // $crop_id,
+			"Slot" => 4, //$slot_amount,
+			"PaymentStatus" => 6 /// $status,
 		);
 
 		$transactionOption = array(
@@ -281,7 +285,17 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		);
 		$response = $this->connectDb->insert_data(json_encode($transactionOption));
 		if($response > 0 ){
-			echo 1;
+			$mailOptions = array(
+				"name" => "Finance Department",
+				"to" => $this->session->userdata("email_address"),
+				"subject" => "Invoice Generated",
+				"fullName" => $this->session->userdata("first_name") . " " . $this->session->userdata("last_name"),
+				"Amount" => 1, // $amount,
+				"link" => base_url("viewReceipt/" . "1")
+			);
+			$this->load->library("notificationmail");
+			$this->notificationmail->send_mail(json_encode($mailOptions));
+			// echo 1;
 
 		}else{
 			echo 0;
