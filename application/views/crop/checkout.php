@@ -142,7 +142,7 @@
               ]
            },
            callback: function(response){
-             var transactionData = {amount: $('#final_total').val(), reference: response.reference, crop_id:'<?php echo $crop[0]->id; ?>', status: 'paid', slot_amount: $('#slot').val(), payment_type: 'online' };
+             var transactionData = {amount: $('#final_total').val(), reference: response.reference, crop_id:'<?php echo $crop[0]->id; ?>', status: 'Confirmed', slot_amount: $('#slot').val(), payment_type: 'Paystack' };
              $.post("<?php echo base_url('ajax_call/transaction'); ?>", transactionData, function(result){
              if (result && result != 'exceeded') {
                console.log(result);
@@ -176,7 +176,7 @@
            });
            setTimeout(() => {
              location.href = '<?php echo base_url("crops/thankyou/") ?>'+ result;
-           }, 1000);
+           }, 2000);
           
         }else {
            swal('Limit Exceeded', 'Your have exceeded the maximum number of slot per user', 'error');

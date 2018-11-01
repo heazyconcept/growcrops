@@ -27,12 +27,12 @@ class Admin extends CI_Controller {
 		$data['recent_users'] =  $this->all_conn->custom_query('select', $query_recent);
 		$data['all_users'] = $this->all_conn->count_data('users');
 		$data['crops'] = $this->all_conn->count_data('crops');
-		$transactions = $this->all_conn->select_data('transactions', '', 'status', 'paid');
+		// $transactions = $this->all_conn->select_data('transactions', '', 'status', 'paid');
 		$data['total_transaction'] = 0;
-		foreach ($transactions as $tran) {
-			$data['total_transaction'] += $tran->amount;
+		// foreach ($transactions as $tran) {
+		// 	$data['total_transaction'] += $tran->amount;
 
-		}
+		// }
 		$today = date("Y-m-d");
 		$query = "SELECT * FROM users WHERE date_created  LIKE  '%$today%'";
 		$data['daily_user'] = $this->all_conn->custom_query('select', $query);

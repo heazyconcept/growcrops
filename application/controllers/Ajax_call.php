@@ -271,12 +271,12 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		
 		$insertData = array(
 			"UserId" => $this->session->userdata("user_id"),
-			"TransactionRef" => 1,// $reference,
-			"Amount" => 1, // $amount,
-			"PaymentType" => 2, // $payment_type,
-			"CropId" => 3, // $crop_id,
-			"Slot" => 4, //$slot_amount,
-			"PaymentStatus" => 6 /// $status,
+			"TransactionRef" => $reference,
+			"Amount" => $amount,
+			"PaymentType" => $payment_type,
+			"CropId" => $crop_id,
+			"Slot" => $slot_amount,
+			"PaymentStatus" => $status,
 		);
 
 		$transactionOption = array(
@@ -290,12 +290,12 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 				"to" => $this->session->userdata("email_address"),
 				"subject" => "Invoice Generated",
 				"fullName" => $this->session->userdata("first_name") . " " . $this->session->userdata("last_name"),
-				"Amount" => 1, // $amount,
-				"link" => base_url("viewReceipt/" . "1")
+				"Amount" => number_format($amount, 2),
+				"link" => base_url("viewReceipt/" . $reference)
 			);
 			$this->load->library("notificationmail");
 			$this->notificationmail->send_mail(json_encode($mailOptions));
-			// echo 1;
+			echo 1;
 
 		}else{
 			echo 0;
