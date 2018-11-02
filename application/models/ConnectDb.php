@@ -136,6 +136,43 @@ class ConnectDb extends CI_model
     }
     return $this->select_data(json_encode($cropOptions));
   }
+  public function FetchUser($userId, $column = "")
+  {
+      $dbOptions = array(
+        'table_name' => 'users',
+        'targets'=> array("id" => $userId)
+      );
+   $userData = $this->select_data(json_encode($dbOptions));
+     if(empty($column)){
+      return $userData[0];  
+      }else{
+       return $userData[0]->$column; 
+      }
+  }
+  public function FetchCrop($cropId, $column ="")
+  {
+    $dbOptions = array(
+      'table_name' => 'crops',
+      'targets'=> array("id" => $cropId)
+    );
+ $cropData = $this->select_data(json_encode($dbOptions));
+   if(empty($column)){
+    return $cropData[0];  
+    }else{
+     return $cropData[0]->$column; 
+    }
+  }
+  public function FetchInitialPayment($cropId)
+  {
+    $dbOptions = array(
+      'table_name' => 'stage_one_payment',
+      'targets'=> array("crop_id" => $cropId)
+    );
+    
+       $dbData = $this->select_data(json_encode($dbOptions));
+        return $dbData[0]->amount; 
+   
+  }
 
   // public function escape_data($string)
   // {

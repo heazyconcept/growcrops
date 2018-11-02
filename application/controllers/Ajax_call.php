@@ -291,7 +291,7 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 				"subject" => "Invoice Generated",
 				"fullName" => $this->session->userdata("first_name") . " " . $this->session->userdata("last_name"),
 				"Amount" => number_format($amount, 2),
-				"link" => base_url("viewReceipt/" . $reference)
+				"link" => base_url("receipt/view/" . $reference)
 			);
 			$this->load->library("notificationmail");
 			$this->notificationmail->send_mail(json_encode($mailOptions));
