@@ -335,39 +335,42 @@ $data["links"] = explode('&nbsp;',$str_links );
 		if (empty($tran_id)) {
 			redirect('admin/payment_approval');
 		}else {
-			$transaction = $this->all_conn->select_data('transactions', '', 'id', $tran_id);
-			$crop_id = $transaction[0]->crop_id;
-			$user_id = $transaction[0]->user_id;
+
+			$transaction = $this->all_conn->select_data('transactions', '', 'Id', $tran_id);
+			$crop_id = $transaction[0]->CropId;
+			$user_id = $transaction[0]->UserId;
 
 			$update_data  = array(
-				'status' => 'paid',
+				'PaymentStatus' => 'Confirmed',
+				'DateConfirmed' => $this->all_conn->fetch_time()
 			);
 			$affected =  $this->all_conn->modify_data('transactions', $update_data, 'id', $tran_id);
-			if ($affected) {
-				$query_check =  "SELECT * FROM crop_invested WHERE user_id = $user_id AND crop_id = $crop_id";
-				$pre_investment  = $this->all_conn->custom_query('select', $query_check);
-				if ($pre_investment) {
-					$update_inv  = array(
-						'stage' => $transaction[0]->stage,
-						'slot'  => $transaction[0]->slot
+			if (!empty($affected)) {
+				$dbOption = array(
+					"table_name" => "transactions",
+					"targets" => array("Id" => $tran_id)
+				);
+				$transaction = $this->connectDb->select_data(json_encode($dbOption));
+					$mailOptions = array(
+						"name" => "Finance Department",
+						"to" => $this->connectDb->FetchUser($user_id, "email_address"),
+						"subject" => "Receipt - Transaction " . $transaction[0]->TransactionRef,
+						"fullName" => $this->connectDb->FetchUser($user_id, "first_name") . " " . $this->connectDb->FetchUser($user_id, "last_name"),
+						"amount" => number_format($transaction[0]->Amount, 2),
+						"transactionRef" => $transaction[0]->TransactionRef,
+						"confirmedDate" => $this->utilities->formatDate($transaction[0]->DateConfirmed)
 					);
-					$investment = $this->all_conn->modify_data('crop_invested',$update_inv, 'id', $pre_investment[0]->id );
-				}else {
-					$investment_data  = array(
-						'crop_id' => $crop_id,
-						'user_id' => $user_id,
-						'stage' => $transaction[0]->stage,
-						'slot'  => $transaction[0]->slot
-					);
-					$investment = $this->all_conn->insert_data('crop_invested', $investment_data);
-				}
-				if ($investment) {
-					redirect('admin/payment_approval');
-				}
+					$this->load->library("receiptmail");
+					$this->receiptmail->send_mail(json_encode($mailOptions));
+					
+					redirect('admin/transactions');
+					
 
-			}else {
-				redirect('admin/payment_approval');
+			} else {
+				redirect('admin/transactions');
 			}
+			
+			
 		}
 	}
 	public function transactions()
@@ -378,13 +381,13 @@ $data["links"] = explode('&nbsp;',$str_links );
 			redirect('/user');
 		}
 		$data['menu'] = 'transactions';
-		$query_all = "SELECT SUM(amount) as total_amount FROM transactions";
+		$query_all = "SELECT SUM(Amount) as total_amount FROM transactions";
 		$data['all_transaction'] = $this->all_conn->custom_query('select', $query_all );
-		$query_pending = "SELECT SUM(amount) as pending_amount FROM transactions WHERE status='pending'";
+		$query_pending = "SELECT SUM(Amount) as pending_amount FROM transactions WHERE PaymentStatus='Not Confirmed'";
 
 		$data['pend_transaction'] = $this->all_conn->custom_query('select', $query_pending );
 
-		$query_paid = "SELECT SUM(amount) as paid_amount FROM transactions WHERE status='paid'";
+		$query_paid = "SELECT SUM(Amount) as paid_amount FROM transactions WHERE PaymentStatus='Confirmed'";
 		$data['paid_transaction'] = $this->all_conn->custom_query('select', $query_paid );
 
 

@@ -19,8 +19,6 @@
     <h3 class="admin_section_title">All Transactions</h3>
   </div>
   <div class="transaction_overview">
-
-
     <div class="row">
       <div class="col-sm-4">
           <div class="statusbox">
@@ -75,8 +73,10 @@
                       <th>Email address</th>
                       <th>Amount Paid</th>
                       <th>Crop Invested in</th>
-                      <th>Stage</th>
                       <th>Slot</th>
+                      <th>Payment Type</th>
+                      <th>Action/Status</th>
+                      
                   </tr>
               </thead>
 
@@ -117,8 +117,10 @@
                                    { "data": "email_address" },
                                    { "data": "amount" },
                                    { "data": "crop_name" },
-                                   { "data": "stage" },
-                                   { "data": "slot" }
+                                   { "data": "slot" },
+                                   { "data": "payment_type" },
+                                   { "data": "action" }
+                                  
                                 ],
                                 dom: 'Bfrtip',
                                 buttons: [

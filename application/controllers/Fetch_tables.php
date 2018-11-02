@@ -88,40 +88,37 @@ public function pending_transaction()
     $this->load->model('pagination_model');
 
 
-    $columns = array(
-                            0 =>'transaction_ref',
-                            1 =>'full_name',
-                            2 => 'email_address',
-                            3 => 'amount',
-                            4 => 'crop_name',
-                            5 => 'stage',
-                            6 => 'slot'
-                        );
-
 		$limit = $this->input->get('length');
     $start = $this->input->get('start');
-    $totalData = $this->all_conn->count_data('transactions', 'status', 'paid');
+    $totalData = $this->all_conn->count_data('transactions');
     $totalFiltered = $totalData;
 
         if(empty($this->input->get('search')['value']))
         {
 
-          $query = "SELECT transactions.*, users.first_name, users.last_name, users.email_address, crops.crop_name FROM transactions INNER JOIN users on transactions.user_id = users.id INNER JOIN crops ON transactions.crop_id = crops.id where transactions.status = 'paid' LIMIT $limit OFFSET $start";
-					$transaction = $this->all_conn->custom_query('select', $query);
+          $query = "SELECT transactions.*, 
+          users.first_name, users.last_name, users.email_address, crops.crop_name 
+          FROM transactions 
+          INNER JOIN users on transactions.UserId = users.id 
+          INNER JOIN crops ON transactions.CropId = crops.id 
+          LIMIT $limit OFFSET $start";
+		    $transaction = $this->all_conn->custom_query('select', $query);
         }
         else {
             $search = $this->input->get('search')['value'];
-            $query = "SELECT transactions.*, users.first_name, users.last_name, users.email_address, crops.crop_name FROM transactions
-            INNER JOIN users on transactions.user_id = users.id
-            INNER JOIN crops ON transactions.crop_id = crops.id  WHERE
-            transactions.status = 'paid' AND transactions.transaction_ref LIKE '%$search%' OR
-            transactions.status = 'paid' AND users.first_name LIKE '%$search%' OR
-            transactions.status = 'paid' AND users.last_name LIKE '%$search%'  OR
-            transactions.status = 'paid' AND users.email_address LIKE '%$search%'  OR
-            transactions.status = 'paid' AND transactions.amount LIKE '%$search%'  OR
-            transactions.status = 'paid' AND transactions.stage LIKE '%$search%'  OR
-            transactions.status = 'paid' AND transactions.slot LIKE '%$search%'  OR
-            transactions.status = 'paid' AND crops.crop_name LIKE '%$search%'
+            $query = "SELECT transactions.*, 
+            users.first_name, users.last_name, users.email_address, crops.crop_name 
+            FROM transactions
+            INNER JOIN users on transactions.UserId = users.id
+            INNER JOIN crops ON transactions.CropId = crops.id  WHERE
+            transactions.TransactionRef LIKE '%$search%' OR
+            users.first_name LIKE '%$search%' OR
+            users.last_name LIKE '%$search%'  OR
+            users.email_address LIKE '%$search%'  OR
+            transactions.Amount LIKE '%$search%'  OR
+            transactions.PaymentStatus LIKE '%$search%'  OR
+            transactions.PaymentType LIKE '%$search%'  OR
+            crops.crop_name LIKE '%$search%'
             LIMIT $limit OFFSET $start";
             $transaction = $this->all_conn->custom_query('select', $query);
             $totalFiltered = count($transaction);
@@ -133,15 +130,18 @@ public function pending_transaction()
             foreach ($transaction as $obj)
             {
 
-                $nestedData['transaction_ref'] = $obj->transaction_ref;
-								$nestedData['full_name'] = $obj->first_name . ' '. $obj->last_name;
+                $nestedData['transaction_ref'] = $obj->TransactionRef;
+				$nestedData['full_name'] = $obj->first_name . ' '. $obj->last_name;
                 $nestedData['email_address'] = $obj->email_address;
-                $nestedData['amount'] = '&#8358;'. number_format($obj->amount, 2);
+                $nestedData['amount'] = '&#8358;'. number_format($obj->Amount, 2);
                 $nestedData['crop_name'] = $obj->crop_name;
-                $nestedData['stage'] = $obj->stage;
-                $nestedData['slot'] = $obj->slot;
-                $nestedData['action'] = '<a href="'.base_url('admin/payment_approve/'). $obj->id.'" class="btn btn-xs btn-primary crop-edit">Approve</a>';
-
+                $nestedData['slot'] = $obj->Slot;
+                $nestedData['payment_type'] = $this->paymentType($obj->PaymentType);
+                if ($obj->PaymentStatus == "Confirmed") {
+                    $nestedData['action'] = '<button type="button" disabled class="btn btn-xs btn-primary crop-edit">Confirmed</button>';
+                } else {
+                    $nestedData['action'] = '<a href="'.base_url('admin/payment_approve/'). $obj->Id.'" class="btn btn-xs btn-primary crop-edit">Confirm</a>';
+                }
                 $data[] = $nestedData;
 
             }
@@ -156,6 +156,14 @@ public function pending_transaction()
                     );
 
         echo json_encode($json_data);
+  }
+  private function paymentType($paymentType)
+  {
+      if($paymentType == "bank_transfer"){
+          return "Bank Transfer";
+      }else{
+          return $paymentType;
+      }
   }
   public function users()
   {

@@ -268,16 +268,34 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		}
 		// print_r($_POST);
 		// die();
+		if($payment_type == "bank_transfer"){
+			$insertData = array(
+				"UserId" => $this->session->userdata("user_id"),
+				"TransactionRef" => $reference,
+				"Amount" => $amount,
+				"PaymentType" => $payment_type,
+				"CropId" => $crop_id,
+				"Slot" => $slot_amount,
+				"PaymentStatus" => $status,
+				"DateCreated" => $this->all_conn->fetch_time(),
+			);
+
+		}elseif($payment_type == "Paystack"){
+			$insertData = array(
+				"UserId" => $this->session->userdata("user_id"),
+				"TransactionRef" => $reference,
+				"Amount" => $amount,
+				"PaymentType" => $payment_type,
+				"CropId" => $crop_id,
+				"Slot" => $slot_amount,
+				"PaymentStatus" => $status,
+				"DateCreated" => $this->all_conn->fetch_time(),
+				"DateConfirmed" => $this->all_conn->fetch_time(),
+			);
+
+
+		}
 		
-		$insertData = array(
-			"UserId" => $this->session->userdata("user_id"),
-			"TransactionRef" => $reference,
-			"Amount" => $amount,
-			"PaymentType" => $payment_type,
-			"CropId" => $crop_id,
-			"Slot" => $slot_amount,
-			"PaymentStatus" => $status,
-		);
 
 		$transactionOption = array(
 			"table_name" => "transactions",
@@ -295,6 +313,19 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 			);
 			$this->load->library("notificationmail");
 			$this->notificationmail->send_mail(json_encode($mailOptions));
+			if($payment_type == "Paystack"){
+				$mailOptions = array(
+					"name" => "Finance Department",
+					"to" => $this->session->userdata('email_address'),
+					"subject" => "Receipt - Transaction " . $reference,
+					"fullName" => $this->session->userdata("first_name") . " " . $this->session->userdata("last_name"),
+					"amount" => number_format($amount, 2),
+					"transactionRef" => $reference,
+					"confirmedDate" => $this->utilities->formatDate($this->all_conn->fetch_time())
+				);
+				$this->load->library("receiptmail");
+				$this->receiptmail->send_mail(json_encode($mailOptions));
+			}
 			echo 1;
 
 		}else{
