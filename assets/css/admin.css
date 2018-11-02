@@ -209,6 +209,30 @@ td.act_col {
     font-family: "Lato";
     font-size: 16px;
 }
+.suggest-item span {
+    display: block;
+}
+.suggest-wrapper {
+    padding: 10px 5px;
+}
+.suggest-item {
+    margin-bottom: 3px;
+    border-bottom: 1px dotted #00000024;
+    padding-bottom: 10px;
+    cursor: pointer;
+    list-style-type: none;
+}
+span.major-suggest {
+    font-size: 15px;
+    font-family: "Montserrat";
+    font-weight: 600;
+    color: #e04643;
+    padding: 3px 0;
+}
+span.minor-suggest {
+    font-family: "Lato";
+    color: #333;
+}
 @media (min-width: 1200px){
 .content-admin-main .container {
     width: 1077px;

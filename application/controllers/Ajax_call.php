@@ -99,10 +99,10 @@ class Ajax_call extends CI_Controller {
 		}
 		if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
 			$user_data = $this->all_conn->select_data('users', '', 'email_address', $username);
-    }
-    else {
+		}
+    	else {
 			$user_data = $this->all_conn->select_data('users', '', 'username', $username);
-    }
+    	}
 
 		if (empty($user_data)) {
 			$return_data = array(
@@ -164,41 +164,40 @@ class Ajax_call extends CI_Controller {
 	}
 	public function save_picture()
 	{
-		 $this->load->helper('form');
-		 $config['upload_path']          = './upload/profile_pic/';
-								$config['allowed_types']        = 'jpg|png|gif|';
-								$config['max_size']             = 10000;
-								$this->load->library('upload', $config);
+		$this->load->helper('form');
+		$config['upload_path']          = './upload/profile_pic/';
+		$config['allowed_types']        = 'jpg|png|gif|';
+		$config['max_size']             = 10000;
+		$this->load->library('upload', $config);
+		if ( ! $this->upload->do_upload('profile_pics'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+			echo "-5";
+			return;
+		}else
+		{
+			$data =  $this->upload->data();
+			$check_exist = $this->all_conn->count_data('user_extra_details', 'user_id', $this->session->userdata('user_id') );
+			if ($check_exist > 0) {
+				$image_data  = array(
+					'image_name' => $data['file_name'],
+				);
+				$this->all_conn->modify_data('user_extra_details', $image_data, 'user_id', $this->session->userdata('user_id') );
+			}else {
+				$image_data  = array(
+					'user_id' => $this->session->userdata('user_id'),
+					'image_name' => $data['file_name'],
+				);
+				$this->all_conn->insert_data('user_extra_details', $image_data);
+			}
 
-								if ( ! $this->upload->do_upload('profile_pics'))
-								{
-									$error = array('error' => $this->upload->display_errors());
-									echo "-5";
-									return;
-								}else
-								{
-									$data =  $this->upload->data();
-									$check_exist = $this->all_conn->count_data('user_extra_details', 'user_id', $this->session->userdata('user_id') );
-									if ($check_exist > 0) {
-										$image_data  = array(
-											'image_name' => $data['file_name'],
-										);
-										$this->all_conn->modify_data('user_extra_details', $image_data, 'user_id', $this->session->userdata('user_id') );
-									}else {
-										$image_data  = array(
-											'user_id' => $this->session->userdata('user_id'),
-											'image_name' => $data['file_name'],
-										);
-										$this->all_conn->insert_data('user_extra_details', $image_data);
-									}
-
-									echo "1";
-								}
+			echo "1";
+		}
 	}
 	public function profile_edit()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
 		$user_data = array(
 			'first_name' => $first_name,
@@ -209,20 +208,19 @@ class Ajax_call extends CI_Controller {
 			'city' => (isset($city))? $city: $this->session->userdata('city'),
 			'state' => $state,
 		);
+		$this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata('user_id'));
 
-$this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata('user_id'));
-
-				$user_meta = array(
-				'first_name' =>$first_name,
-				'last_name' =>$last_name,
-				'user_address' =>$user_address,
-				'state' =>$state,
-				'city' => (isset($city))? $city: $this->session->userdata('city'),
-				'email_address' =>$email_address,
-				'phone_number' =>$phone_number,
-			);
-			$this->session->set_userdata($user_meta);
-			echo "1";
+		$user_meta = array(
+			'first_name' =>$first_name,
+			'last_name' =>$last_name,
+			'user_address' =>$user_address,
+			'state' =>$state,
+			'city' => (isset($city))? $city: $this->session->userdata('city'),
+			'email_address' =>$email_address,
+			'phone_number' =>$phone_number,
+		);
+		$this->session->set_userdata($user_meta);
+		echo "1";
 
 
 	}
@@ -264,7 +262,7 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 	public function transaction()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
 		// print_r($_POST);
 		// die();
@@ -339,97 +337,96 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		}
 		$this->load->helper('form');
 		$config['upload_path']          = './assets/img/';
-							 $config['allowed_types']        = 'jpg|png|gif|';
-							 $config['max_size']             = 10000;
-							 $this->load->library('upload', $config);
+		$config['allowed_types']        = 'jpg|png|gif|';
+		$config['max_size']             = 10000;
+		$this->load->library('upload', $config);
 
-							 if ($this->upload->do_upload('featured_image'))
-							 {
+		if ($this->upload->do_upload('featured_image'))
+		{
 
-								 $featured_image_data = $this->upload->data();
-								 if ($this->upload->do_upload('alternative_image')) {
-								 	$alternative_image_data = $this->upload->data();
-									  $crop_data = array(
-											'crop_name' => $crop_name,
-											'featured_image' => $featured_image_data['file_name'],
-											'alternative_image' => $alternative_image_data['file_name'],
-											'content' => $content,
-											'is_full' => 0,
-											'slug' => '',
-											'is_early' => 0,
-											'admin_fee' => $admin_fee,
-											'projected_income' => $min_projected.'-'.$max_projected,
-										);
-										$crop_id = $this->all_conn->insert_data('crops', $crop_data);
+			$featured_image_data = $this->upload->data();
+			if ($this->upload->do_upload('alternative_image')) {
+			$alternative_image_data = $this->upload->data();
+				$crop_data = array(
+					'crop_name' => $crop_name,
+					'featured_image' => $featured_image_data['file_name'],
+					'alternative_image' => $alternative_image_data['file_name'],
+					'content' => $content,
+					'is_full' => 0,
+					'slug' => '',
+					'is_early' => 0,
+					'admin_fee' => $admin_fee,
+					'projected_income' => $min_projected.'-'.$max_projected,
+				);
+				$crop_id = $this->all_conn->insert_data('crops', $crop_data);
 
-										if ($crop_id) {
+				if ($crop_id) {
 
-											$slug = $crop_id.'-'.str_replace(' ', '-', 	strtolower($crop_name));
-											$update_data  = array(
-												'slug' => $slug,
-											);
-											$this->all_conn->modify_data('crops', $update_data, 'id', $crop_id);
-											for ($i=0; $i < count($payment_details) ; $i++) {
-												$attribute_data = array(
-													'crop_id' => $crop_id,
-													'payment_details' => $payment_details[$i],
-													'quantity' => $quantity[$i],
-													'cost_per_unit' => $cost_per_unit[$i],
-													'total_cost' => $cost_per_unit[$i] * $quantity[$i],
-												);
-												$att_id = $this->all_conn->insert_data('payment_breakdown', $attribute_data );
+					$slug = $crop_id.'-'.str_replace(' ', '-', 	strtolower($crop_name));
+					$update_data  = array(
+						'slug' => $slug,
+					);
+					$this->all_conn->modify_data('crops', $update_data, 'id', $crop_id);
+					for ($i=0; $i < count($payment_details) ; $i++) {
+						$attribute_data = array(
+							'crop_id' => $crop_id,
+							'payment_details' => $payment_details[$i],
+							'quantity' => $quantity[$i],
+							'cost_per_unit' => $cost_per_unit[$i],
+							'total_cost' => $cost_per_unit[$i] * $quantity[$i],
+						);
+						$att_id = $this->all_conn->insert_data('payment_breakdown', $attribute_data );
 
-											}
-											if ($att_id) {
-												$initial_amount  = array(
-													'crop_id' => $crop_id,
-													'amount' => $stage_one_amount
-												);
-												$initial_id =  $this->all_conn->insert_data('stage_one_payment', $initial_amount);
-												if ($initial_id) {
-													echo "1";
-												}else {
-													$this->all_conn->delete_data('stage_one_payment', 'crop_id', $crop_id);
-													$this->all_conn->delete_data('payment_breakdown', 'crop_id', $crop_id);
-													$this->all_conn->delete_data('crops', 'id', $crop_id);
-													echo "-5";
-												}
-											}else {
-												$this->all_conn->delete_data('payment_breakdown', 'crop_id', $crop_id);
-												$this->all_conn->delete_data('crops', 'id', $crop_id);
-												echo "-5";
-											}
-										}else {
-											echo "-5";
-										}
+					}
+					if ($att_id) {
+						$initial_amount  = array(
+							'crop_id' => $crop_id,
+							'amount' => $stage_one_amount
+						);
+						$initial_id =  $this->all_conn->insert_data('stage_one_payment', $initial_amount);
+						if ($initial_id) {
+							echo "1";
+						}else {
+							$this->all_conn->delete_data('stage_one_payment', 'crop_id', $crop_id);
+							$this->all_conn->delete_data('payment_breakdown', 'crop_id', $crop_id);
+							$this->all_conn->delete_data('crops', 'id', $crop_id);
+							echo "-5";
+						}
+					}else {
+						$this->all_conn->delete_data('payment_breakdown', 'crop_id', $crop_id);
+						$this->all_conn->delete_data('crops', 'id', $crop_id);
+						echo "-5";
+					}
+				}else {
+					echo "-5";
+				}
 
 
-								}else {
-									$error = array('error' => $this->upload->display_errors());
-									echo "-5";
-									return;
-								}
+			}else {
+				$error = array('error' => $this->upload->display_errors());
+				echo "-5";
+				return;
+			}
 
-							 }else
-							 {
-								 $error = array('error' => $this->upload->display_errors());
-								 echo "-5";
- 								return;
+		}else
+		{
+			$error = array('error' => $this->upload->display_errors());
+			echo "-5";
+			return;
 
-							 }
+		}
 
 	}
 	public function modify_crop()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
-
 		$this->load->helper('form');
 		$config['upload_path']          = './assets/img/';
-							 $config['allowed_types']        = 'jpg|png|gif|';
-							 $config['max_size']             = 10000;
-							 $this->load->library('upload', $config);
+		$config['allowed_types']        = 'jpg|png|gif|';
+		$config['max_size']             = 10000;
+		$this->load->library('upload', $config);
 
 		if (isset($_FILES['featured_image']) && !empty($_FILES['featured_image']['name']))
 		{
@@ -469,39 +466,36 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		if ($check_details) {
 			$this->all_conn->delete_data('payment_breakdown', 'crop_id', $crop_id );
 		}
-			 if (isset($payment_details)) {
-				 for ($i=0; $i < count($payment_details) ; $i++) {
-  				 if (!empty($payment_details[$i])) {
-  					 $attribute_data = array(
-    					 'crop_id' => $crop_id,
-    					 'payment_details' => $payment_details[$i],
-    					 'quantity' => $quantity[$i],
-    					 'cost_per_unit' => $cost_per_unit[$i],
-    					 'total_cost' => $cost_per_unit[$i] * $quantity[$i],
-    				 );
-    				 $att_id = $this->all_conn->insert_data('payment_breakdown', $attribute_data );
+		if (isset($payment_details)) {
+			for ($i=0; $i < count($payment_details) ; $i++) {
+				if (!empty($payment_details[$i])) {
+					$attribute_data = array(
+						'crop_id' => $crop_id,
+						'payment_details' => $payment_details[$i],
+						'quantity' => $quantity[$i],
+						'cost_per_unit' => $cost_per_unit[$i],
+						'total_cost' => $cost_per_unit[$i] * $quantity[$i],
+					);
+					$att_id = $this->all_conn->insert_data('payment_breakdown', $attribute_data );
   				 }
 
   			 }
-
-
-			 }
-			 $check_initials = $this->all_conn->select_data('stage_one_payment', '', 'crop_id', $crop_id);
-			 if ($check_initials) {
-				 $update_initials = array(
-					 'amount' => $stage_one_amount,
-				 );
-				 $this->all_conn->modify_data('stage_one_payment', $update_initials,  'crop_id', $crop_id );
-			 }else {
-				 $update_initials = array(
-					 'crop_id' => $crop_id,
-					 'amount' => $stage_one_amount,
-					'description' => '',
-				);
-				$this->all_conn->insert_data('stage_one_payment', $update_initials);
-			 }
-
-			 echo "1";
+		}
+		$check_initials = $this->all_conn->select_data('stage_one_payment', '', 'crop_id', $crop_id);
+		if ($check_initials) {
+			$update_initials = array(
+				'amount' => $stage_one_amount,
+			);
+			$this->all_conn->modify_data('stage_one_payment', $update_initials,  'crop_id', $crop_id );
+		}else {
+			$update_initials = array(
+				'crop_id' => $crop_id,
+				'amount' => $stage_one_amount,
+				'description' => '',
+			);
+			$this->all_conn->insert_data('stage_one_payment', $update_initials);
+		}
+		echo "1";
 
 
 
@@ -509,7 +503,7 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 	public function activate_earlybird($crop_id ='')
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
 		if (empty($crop_id)) {
 			echo "-5";
@@ -552,7 +546,7 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 	public function reset_password()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
 
 		$valid_email = $this->all_conn->select_data('users', '',  'email_address',  $email_address);
@@ -579,9 +573,9 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 	public function reset_pass()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
-	  $user_data = $this->all_conn->select_data('users', '', 'id', $user_id);
+		$user_data = $this->all_conn->select_data('users', '', 'id', $user_id);
 		if ($user_data) {
 			$password = $user_data[0]->salt.$password;
 			$password = md5($password);
@@ -645,8 +639,8 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 	public function get_details()
 	{
 		$email_address = $_POST['email_address'];
-			$user_data = $this->all_conn->select_data('users', '', 'email_address', $email_address);
-			echo json_encode($user_data[0]);
+		$user_data = $this->all_conn->select_data('users', '', 'email_address', $email_address);
+		echo json_encode($user_data[0]);
 
 	}
 	public function get_crop_amount($stage = '', $crop_id = '')
@@ -664,140 +658,6 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 				'amount' => 0.00,
 			);
 			echo json_encode($response);
-		}
-	}
-
-
-	public function book_transaction()
-	{
-		if ($this->session->has_userdata('tran_id')) {
-			foreach ($_POST as $key => $value) {
-			$$key = $value;
-			}
-			$tran_id =  $this->session->userdata('tran_id');
-
-			if (is_array($tran_id)) {
-				foreach ($tran_id as $tran) {
-					$details = explode('_', $tran);
-					if ($details[1] == 'earlybird') {
-						$old_transaction  = $data['transaction'] = $this->all_conn->select_data('transactions', '', 'id', $details[0]);
-					}else {
-						$old_transaction  = $data['transaction'] = $this->all_conn->select_data('crop_invested', '', 'id', $details[0]);
-					}
-					$user_id =  $old_transaction[0]->user_id;
-					$crop_id =  $old_transaction[0]->crop_id;
-					$strp_stage = str_replace(' ', '', $old_transaction[0]->stage);
-					if ($strp_stage == 'earlybird') {
-						$query_cr = "SELECT * FROM invested_crop WHERE user_id = $user_id AND crop_id = $crop_id";
-						$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-						$count_investment = count($prev_investment);
-						if ($count_investment > 0) {
-							$query_tran = "SELECT * FROM transactions WHERE user_id = $user_id ORDER BY transaction_date DESC LIMIT $count_investment";
-							$user_tran = $this->all_conn->custom_query('select', $query_tran);
-							if ($user_tran) {
-								$slot = 0;
-								foreach ($user_tran as $us) {
-									$slot = $slot+ $us->slot;
-								}
-							}
-						}else {
-							$query_cr = "SELECT * FROM crop_invested WHERE user_id = $user_id AND crop_id = $crop_id";
-							$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-							$slot = $prev_investment[0]->slot;
-						}
-					}else {
-
-						$query_cr = "SELECT * FROM crop_invested WHERE user_id = $user_id AND crop_id = $crop_id";
-						$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-						$slot = $prev_investment[0]->slot;
-					}
-					$schedule_data  = array(
-						'crop_id' => $old_transaction[0]->crop_id,
-						'user_id' => $old_transaction[0]->user_id,
-					 'description' => $description,
-					 'amount' => $amount,
-					 'stage' => 'others',
-					 'slot' => $slot,
-				 );
-				 $schedule_id = $this->all_conn->insert_data('payment_schedule', $schedule_data);
-				 $crop_invested = $this->all_conn->select_data('crops', '', 'id', $old_transaction[0]->crop_id);
-				 $user_crop = $this->all_conn->select_data('users', '', 'id', $old_transaction[0]->user_id);
-				 $other_values = array(
-					 'first_name' => $user_crop[0]->first_name,
-					 'last_name' => $user_crop[0]->last_name,
-					 'crop_name' => $crop_invested[0]->crop_name,
-					 'description' => $description
-				 );
-				 $this->mail_lib->send_mail('Next Cycle Invoice - GrowcropsOnline', $user_crop[0]->email_address, 'Invoice for the next Cycle', 'invoicing', $other_values, 'user');
-
-				}
-			}else {
-
-				$tran = explode('_', $tran_id);
-				if ($tran[1] == 'earlybird') {
-					$old_transaction  = $data['transaction'] = $this->all_conn->select_data('transactions', '', 'id', $tran[0]);
-				}else {
-					$old_transaction  = $data['transaction'] = $this->all_conn->select_data('crop_invested', '', 'id', $tran[0]);
-				}
-
-				$user_id =  $old_transaction[0]->user_id;
-				$crop_id =  $old_transaction[0]->crop_id;
-				$strp_stage = str_replace(' ', '', $old_transaction[0]->stage);
-				if ($strp_stage == 'earlybird') {
-					$query_cr = "SELECT * FROM invested_crop WHERE user_id = $user_id AND crop_id = $crop_id";
-					$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-					$count_investment = count($prev_investment);
-					if ($count_investment > 0) {
-						$query_tran = "SELECT * FROM transactions WHERE user_id = $user_id ORDER BY transaction_date DESC LIMIT $count_investment";
-						$user_tran = $this->all_conn->custom_query('select', $query_tran);
-						if ($user_tran) {
-							$slot = 0;
-							foreach ($user_tran as $us) {
-								$slot = $slot+ $us->slot;
-							}
-						}
-				}else {
-					$query_cr = "SELECT * FROM crop_invested WHERE user_id = $user_id AND crop_id = $crop_id";
-					$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-					if ($prev_investment) {
-							$slot = $prev_investment[0]->slot;
-					}
-				}
-			}else {
-				$query_cr = "SELECT * FROM crop_invested WHERE user_id = $user_id AND crop_id = $crop_id";
-				$prev_investment = $this->all_conn->custom_query('select', $query_cr);
-				$slot = $prev_investment[0]->slot;
-			}
-				$schedule_data  = array(
-					'crop_id' => $old_transaction[0]->crop_id,
-					'user_id' => $old_transaction[0]->user_id,
-				 'description' => $description,
-				 'amount' => $amount,
-				 'stage' => 'others',
-				 'slot' => $slot,
-			 );
-			 $schedule_id = $this->all_conn->insert_data('payment_schedule', $schedule_data);
-			 $crop_invested = $this->all_conn->select_data('crops', '', 'id', $old_transaction[0]->crop_id);
-			 $user_crop = $this->all_conn->select_data('users', '', 'id', $old_transaction[0]->user_id);
-			 $other_values = array(
-				 'first_name' => $user_crop[0]->first_name,
-				 'last_name' => $user_crop[0]->last_name,
-				 'crop_name' => $crop_invested[0]->crop_name,
-			 );
-			 $this->mail_lib->send_mail('Next Cycle Invoice - GrowcropsOnline', $user_crop[0]->email_address, 'Invoice for the next Cycle', 'invoicing', $other_values, 'user');
-			}
-			if (isset($schedule_id)) {
-				if ($schedule_id) {
-					$this->session->unset_userdata('tran_id');
-						echo "1";
-					}else {
-						echo "-5";
-					}
-			}else {
-				echo "-3";
-			}
-
-
 		}
 	}
 
@@ -906,45 +766,45 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 		}
 		$this->load->helper('form');
 		$config['upload_path']          = './assets/img/';
-							 $config['allowed_types']        = 'jpg|png|gif|jpeg';
-							 $config['max_size']             = 10000;
-							 $this->load->library('upload', $config);
-							 if ($actions == 'home_banner') {
-								 if (isset($_FILES['home_banner']) && !empty($_FILES['home_banner']['name'][0])){
-									 $main = $_FILES['home_banner'];
-									 $exclude_all = [''];
-									 $exclude_size =[0];
-									 $exclude_error =[4];
-									 $main['name']  = array_diff($main['name'], $exclude_all);
-									 $main['type']  = array_diff($main['type'], $exclude_all);
-									 $main['tmp_name']  = array_diff($main['tmp_name'], $exclude_all);
-									 $main['error'] = array_diff($main['error'], $exclude_error);
-									 $main['size']  = array_diff($main['size'], $exclude_size);
-									 $_FILES['home_banner'] = $main;
+		$config['allowed_types']        = 'jpg|png|gif|jpeg';
+		$config['max_size']             = 10000;
+		$this->load->library('upload', $config);
+		if ($actions == 'home_banner') {
+			if (isset($_FILES['home_banner']) && !empty($_FILES['home_banner']['name'][0])){
+				$main = $_FILES['home_banner'];
+				$exclude_all = [''];
+				$exclude_size =[0];
+				$exclude_error =[4];
+				$main['name']  = array_diff($main['name'], $exclude_all);
+				$main['type']  = array_diff($main['type'], $exclude_all);
+				$main['tmp_name']  = array_diff($main['tmp_name'], $exclude_all);
+				$main['error'] = array_diff($main['error'], $exclude_error);
+				$main['size']  = array_diff($main['size'], $exclude_size);
+				$_FILES['home_banner'] = $main;
 
-									if($this->upload->do_multi_upload("home_banner")) {
-										$uploaded_file = $this->upload->get_multi_upload_data();
+				if($this->upload->do_multi_upload("home_banner")) {
+					$uploaded_file = $this->upload->get_multi_upload_data();
 
- 							 		}
-								}
-									for ($i=0; $i <count($banner_title) ; $i++) {
-										$option_data[] = array(
-											'banner_title' => $banner_title[$i],
-											'banner_sub_title' => $banner_sub_title[$i],
-											'home_banner' => (isset($uploaded_file[$i]['file_name']))? $uploaded_file[$i]['file_name'] : $old_home_banner[$i],
-										);
+				}
+			}
+			for ($i=0; $i <count($banner_title) ; $i++) {
+				$option_data[] = array(
+					'banner_title' => $banner_title[$i],
+					'banner_sub_title' => $banner_sub_title[$i],
+					'home_banner' => (isset($uploaded_file[$i]['file_name']))? $uploaded_file[$i]['file_name'] : $old_home_banner[$i],
+				);
 
-									}
+			}
 		}elseif ($actions == 'info_banner') {
 			if (isset($_FILES['info_banner']) && !empty($_FILES['info_banner']['name'])){
-			 if($this->upload->do_upload("info_banner")) {
+			 	if($this->upload->do_upload("info_banner")) {
 				 $uploaded_file =  $this->upload->data();
 
-			 }
-		 }
-				 $option_data[] = array(
-					 'info_banner' => (isset($uploaded_file['file_name']))? $uploaded_file['file_name'] : $old_info_banner,
-				 );
+			 	}
+		 	}
+			$option_data[] = array(
+				'info_banner' => (isset($uploaded_file['file_name']))? $uploaded_file['file_name'] : $old_info_banner,
+			);
 
 		}elseif ($actions == 'early_bird') {
 			$early_bird = $_POST['is_early'];
@@ -973,6 +833,29 @@ $this->all_conn->modify_data('users', $user_data, 'id', $this->session->userdata
 			}
 		}
 
+	}
+	public function fetchUser($search, $limit = 0)
+	{
+		
+		if($search == '' || $search == ' ' ){
+			echo "";
+			return;
+		}
+		$query = "SELECT * FROM users WHERE 
+		user_role = 1 AND first_name like '%$search%' OR
+		user_role = 1 AND last_name like '%$search%' OR
+		user_role = 1 AND email_address like '%$search%' OR
+		user_role = 1 AND phone_number like '%$search%'";
+		if (!empty($limit)) {
+			$query = $query . "LIMIT $limit";
+		}
+		$dbOptions = array(
+			"my_query" => $query,
+			"query_action" =>"select"
+		);
+		$result = $this->connectDb->custom_query(json_encode($dbOptions));
+		echo json_encode($result);
+		return;
 	}
 
 }
