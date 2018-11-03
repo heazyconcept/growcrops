@@ -14,7 +14,7 @@ class Ajax_call extends CI_Controller {
 	public function register()
 	{
 		foreach ($_POST as $key => $value) {
-		$$key = $value;
+			$$key = $value;
 		}
 		$check_data = array(
 			'username' => $username,
@@ -856,6 +856,59 @@ class Ajax_call extends CI_Controller {
 		$result = $this->connectDb->custom_query(json_encode($dbOptions));
 		echo json_encode($result);
 		return;
+	}
+	public function callUserDashboard($userId)
+	{
+		$query = "SELECT * from user_dashboard WHERE UserId = $userId ORDER BY DateCreated DESC LIMIT 1";
+		$dbOptions = array(
+			"my_query" => $query,
+			"query_action" => "select",
+		);
+		$result = $this->connectDb->custom_query(json_encode($dbOptions));
+
+		echo json_encode($result[0]);
+	
+	}
+	public function addDashboard()
+	{
+		foreach ($_POST as $key => $value) {
+			$$key = $value;
+		}
+		$dbOptions  = array(
+			"table_name" => "users",
+			"targets" => array("id" => $UserId)
+		);
+		$userDetails = $this->connectDb->select_data(json_encode($dbOptions));
+		if(!$userDetails[0]->dashboard_enabled){
+			$updateData = array(
+				"dashboard_enabled" => true
+			);
+			$dbOptions  = array(
+				"table_name" => "users",
+				"process_data" => $updateData,
+				"targets" => array("id" => $UserId)
+			);
+			$this->connectDb->modify_data(json_encode($dbOptions));
+		}
+		$dashboardData = array(
+			"UserId" => $UserId,
+			"AmountPayeable" => $AmountPayeable,
+			"Slot" => $Slot,
+			"PaymentUpdate" => $PaymentUpdate,
+			"CreatedBy" => $this->session->userdata("user_id"),
+			"DateCreated" => $this->all_conn->fetch_time(),
+		);
+		$dbOptions = array(
+			"table_name" => "user_dashboard",
+			"process_data" => $dashboardData
+		);
+		$response = $this->connectDb->insert_data(json_encode($dbOptions));
+		if(!empty($response)){
+			echo "1";
+		}else{
+			echo "0";
+		}
+	
 	}
 
 }

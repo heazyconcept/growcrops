@@ -230,4 +230,60 @@ public function pending_transaction()
 
         echo json_encode($json_data);
   }
+  public function usersDashboard()
+  {
+    $this->load->model('pagination_model');
+	$limit = $this->input->get('length');
+    $start = $this->input->get('start');
+    $dbOption = array(
+        "table_name" => "users",
+        "targets"=> array("dashboard_enabled" => true)
+    );
+    $totalData = $this->connectDb->count_data(json_encode($dbOption));
+    $totalFiltered = $totalData;
+
+        if(empty($this->input->get('search')['value']))
+        {
+          $users = $this->pagination_model->fetch_data_specific($limit, $start, 'users', 'dashboard_enabled', true);
+        }
+        else {
+            $search = $this->input->get('search')['value'];
+            
+            $search_parameter  = array(
+                            'dashboard_enabled' => true,
+							'first_name' => $search,
+							'last_name' => $search,
+							'phone_number' => $search,
+                            'email_address' => $search,
+						);
+
+
+            $users =  $this->pagination_model->table_search($limit, $start,'users', $search_parameter, $search);
+            $totalFiltered = $this->pagination_model->table_search_count($search_parameter, 'users', $search);
+        }
+
+        $data = array();
+        if(!empty($users))
+        {
+            foreach ($users as $obj)
+            {
+
+				$nestedData['full_name'] = $obj->first_name . ' '. $obj->last_name;
+                $nestedData['email_address'] = $obj->email_address;
+                $nestedData['phone_number'] = $obj->phone_number;
+                $data[] = $nestedData;
+
+            }
+
+        }
+
+        $json_data = array(
+                    "draw"            => intval($this->input->get('draw')),
+                    "recordsTotal"    => intval($totalData),
+                    "recordsFiltered" => intval($totalFiltered),
+                    "data"            => $data
+                    );
+
+        echo json_encode($json_data);
+  }
 }

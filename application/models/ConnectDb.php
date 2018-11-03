@@ -69,11 +69,15 @@ class ConnectDb extends CI_model
   {
     $options = json_decode($options);
     if (isset($options->targets) && !empty($options->targets)) {
-      if ($options->operator == 'AND' || $options->operator == 'and') {
-        $this->db->where((array)$options->targets);
-      }elseif ($options->operator == 'OR' || $options->operator == 'or') {
-        $this->db->or_where((array) $options->targets);
-      }else {
+      if(isset($options->operator)){
+        if ($options->operator == 'AND' || $options->operator == 'and') {
+          $this->db->where((array)$options->targets);
+        }elseif ($options->operator == 'OR' || $options->operator == 'or') {
+          $this->db->or_where((array) $options->targets);
+        }
+
+      }
+      else {
         $this->db->where( (array) $options->targets);
       }
     }

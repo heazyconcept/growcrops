@@ -38,6 +38,7 @@
                                                                     <div class="form-group">
                                                                         <label for="phone_number">Phone Number</label>
                                                                         <input type="text" class="form-control" id="phone_number"  name="phone_number" disabled>
+                                                                        <input type="hidden" class="form-control" id="user_id"  name="UserId" >
                                                                     </div>
                                                                     </div>
 
@@ -54,6 +55,9 @@
                                                                     <div class="form-group">
                                                                         <label for="paymentUpdate">Payment Update</label>
                                                                         <textarea class="form-control" id="paymentUpdate"  name="PaymentUpdate"></textarea>                                                           
+                                                                    </div>
+                                                                    <div class="form-action">
+                                                                        <button type="submit" class="btn btn-success" >Submit</button>
                                                                     </div>
 
                                                                 </div>
@@ -82,13 +86,13 @@
                                 <div class="col-sm-12">
                                     <div class="row">
                                         <div class="container">
-                                            <a href="<?php echo base_url('admin/users') ?>" class="btn btn-primary pull-right new-crop">
+                                            <a href="<?php echo base_url('admin/userDashboard') ?>" class="btn btn-primary pull-right new-crop">
                                                 Refresh</a>
 
                                             <h3 class="admin_section_title">User Dashbard Enabled </h3> </div> <div
                                                     class="col-sm-12 col-md-12">
                                                     <div class="background-white p20 mb50">
-                                                        <table class="table table-striped mb0 table-pending">
+                                                        <table class="table table-striped mb0 table-dashboard">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Full Name</th>
@@ -151,7 +155,7 @@
                             })
 
                         })
-                         $(document).on( 'click', '.suggest-item', function (){
+                        $(document).on( 'click', '.suggest-item', function (){
                            var id =  $(this).data("id");
                            $(".suggest-wrapper").html('');
                            var html = "";
@@ -161,23 +165,62 @@
                                    $("#full_name").val(fullName);
                                    $("#email_address").val(value.email_address);
                                    $("#phone_number").val(value.phone_number);
+                                   $("#user_id").val(value.id);
+                                   $.post('<?php echo base_url("ajax_call/callUserDashboard/") ?>' + id, function(data){
+                                       if(data != null || data != undefined || data != ''){
+                                        var dashboardData = JSON.parse(data);
+                                        console.log(dashboardData);
+                                       $("#slot").val(dashboardData.Slot);
+                                       $("#amount").val(dashboardData.AmountPayeable);
+                                       $("#paymentUpdate").val(dashboardData.PaymentUpdate);
+                                       }
+                                       
 
+                                   })
 
                                }
                            })
                            $(".user-profile").show("slow");
 
                         })
+                        $('#userDashboardForm').on('submit', function (e) {
+                            e.preventDefault();
+                            var formData = new FormData($('form#userDashboardForm')[0]);
+                            $.ajax({
+                                url: '<?php echo base_url('ajax_call/addDashboard'); ?>',
+                                type: 'POST',
+                                data: formData,
+                                async: false,
+                                success: function (data) {
+                                    console.log(data);
+                                    if(data == '1'){
+                                    swal("Success", "Data saved successfully", "success");
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },2000)
+                                    }else {
+                                    swal("Oops", "unknown error occured, kindly contact your administrator", "error");
+                                    }
+
+                                },
+                                error: function(error){
+                                    console.log(error);
+                                },
+                                cache: false,
+                                contentType: false,
+                                processData: false
+                            });
+    })
                     })
                 </script>
                 <script type="text/javascript">
                     $(document).ready(function () {
-                        var userTable = $('.table-pending').DataTable({
+                        var userTable = $('.table-dashboard').DataTable({
                             "pageLength": 50,
                             "processing": true,
                             "serverSide": true,
                             "ajax": {
-                                "url": "<?php echo base_url("fetch_tables/users") ?>",
+                                "url": "<?php echo base_url("fetch_tables/usersDashboard") ?>",
                               "dataType": "json",
                                 "type": "GET"
                             },
@@ -185,8 +228,6 @@
                                 { "data": "full_name" },
                                 { "data": "email_address" },
                                 { "data": "phone_number" },
-                                { "data": "user_address" },
-                                { "data": "state" }
                             ],
                             dom: 'Bfrtip',
                             buttons: [

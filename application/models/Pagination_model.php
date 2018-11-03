@@ -18,11 +18,11 @@ public function fetch_data($limit, $id, $table) {
 $query = $this->db->get($table);
 return $query->result();
 }
-public function fetch_data_specific($limit, $id, $table) {
+public function fetch_data_specific($limit, $id, $table, $ref_key, $ref_val) {
 
     $this->db->limit($limit);
     $this->db->offset($id);
-    // $this->db->where($ref_key, $ref_val);
+    $this->db->where($ref_key, $ref_val);
 
 // $this->db->limit($limit);
 // $this->db->where('id', $id);
