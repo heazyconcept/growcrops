@@ -132,7 +132,7 @@ a.all-action {
 .section-category-action {
     clear: both;
     text-align: center;
-    padding: 30px 0;
+    padding: 0px 0;
 }
 .why-choose-us-box {
     text-align: center;
@@ -392,7 +392,7 @@ ul.footer-links {
     border-radius: 0;
 }
 .how-it-works-infog {
-    padding: 150px 0;
+    padding: 60px 0;
 }
 /* How it works page end */
 /* Contact us page start */

@@ -79,7 +79,29 @@
 
                           <div class="faq-item-answer">
                               <p>
-                                  It is either the harvested crops or the value of the crops
+                              It is either the PROCESSED PRODUCT or the VALUE/ COST of the processed product EXCLUSIVELY
+                              </p>
+                          </div><!-- /.faq-item-answer -->
+
+
+                      </div><!-- /.faq-item -->
+                      <div class="faq-item">
+                          <div class="faq-item-question">
+                              <h2>Is processing compulsory?</h2>
+                          </div><!-- /.faq-item-question -->
+
+                          <div class="faq-item-answer">
+                              <p>
+                              Yes, it is a new update in our process which helps us make more money and 
+                              avoid wastage due to spoilages on the farm. It is the only way we can keep 
+                              doing business. As we also stated, we are doing it with NO strait jacketed 
+                              timelines for sale. 
+
+                              </p>
+                              <p>
+                                  Note that:  We estimate the timelines from the beginning and give 
+                                  changes / updates as they occur on the field.
+
                               </p>
                           </div><!-- /.faq-item-answer -->
 

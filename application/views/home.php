@@ -47,43 +47,53 @@
                      <div class="home_information">
                         <h3>A Brilliant Concept : Safe, Profitable and Insured</h3>
                         <p>
-                           Anyone can OWN and RUN a real farm online from anywhere on your mobile phone, laptop, at home, in the office and on the road.
+                        Now, anyone can OWN and RUN a real farm online from anywhere on your mobile phone, laptop, at home, 
+                        in the office and on the road.
                         </p>
                         <p>
-                           You simply choose a crop with a location you desire, choose a land size, you pay for it online and CONGRATS! You have started!
+                        You simply choose a crop with a location you desire, choose a land size, you pay for it online and 
+                        CONGRATS! You have started! 
                            <a href="<?php echo base_url('home/faq'); ?>"><em > CLICK HERE</em></a> FOR OUR
                            <em><a href="<?php echo base_url('home/faq'); ?>">FREQUENTLY ASKED QUESTIONS</a></em>
                         </p>
                         <p>
-                           A certificate would be sent to you as evidence of your money with us for the booking of each slot.
+                        A certificate would be sent to you as evidence of your booking of your desired number of slots.
                         </p>
                         <p>
-                           Over the period of planting, weeding, spraying herbicides and harvesting, you would be prompted 
-                           to pay online for each of the services. You are also entitled to visit your Farm Parcel at anytime 
-                           through a Pre-book Appointments System.
-                           <br>
-                           During the visit, the farm manager would be available for any questions and enquiry.
+                        Over the period of planting, weeding, spraying herbicides and harvesting, 
+                        you would be prompted to pay online for each of the services. You are also 
+                        entitled to visit your Farm Parcel at anytime through a Pre-book Appointments 
+                        System. 
+                        <br>
+                        During the visit, the farm manager would be available for any questions and enquiry.
                         </p>
                         <p>
-                           At any point, you can request an assessment of the value of your farm and you can sell your interest in
-                            the farm to anyone you choose. <a class="more" href="<?php echo base_url('home/faq'); ?>" >MORE</a>
+                        Basically, all we are offering is farm services. Farming for you to allow 
+                        you experience farming risk free and make some money in the process.
+                        <br>
+                        At any point, you can request an assessment of the value of your farm and you can 
+                        sell your interest in the farm to anyone you choose.<a class="more" href="<?php echo base_url('home/faq'); ?>" >MORE</a>
                         </p>
                         <p>
-                           After harvest, your harvested produce would either be delivered to you, sold off at your instruction or 
-                           Possibly then sent for processing where the processed product is sold off at your instruction on a 
-                           platform established for that purpose or the processed product delivered to you.
+                        After harvest, your harvested produce would either be immediately delivered to you or 
+                        immediately sent for processing where the processed product is sold off at your 
+                        instruction on a platform established for that purpose or if you choose, the processed 
+                        product will be delivered to you. 
                         </p>
                         <p>
-                           The farming process is insured from planting to harvest so you never lose money!
+                           The farming process is insured from planting to harvest so you never lose money !
                         </p>
                         <p>
-                           Since everyone must buy crops and eat, you can make  and up to 200% profit in some cases based on 
-                           estimated prices given per crop   <em style="box-sizing: border-box;">
+                            With the surging need for both raw and processed organic agricultural 
+                            products,  you can make and up to 100% profit in SOME cases based on 
+                            estimated prices given per crop   <em style="box-sizing: border-box;">
                            <a href="<?php echo base_url('home/crops'); ?>" >HERE</a></em>.
                         </p>
                         <p >
-                           This is only for those interested in the farming and processing experience, risks and profits. 
-                           The guarantee is that you would NOT loose your money no matter how long the process takes. 
+                            This is only for those interested in the farming and processing experience, 
+                            risks and profits. We will send you a proposed timeline as soon as work 
+                            begins on the field. Our ultimate guarantee is that you would NOT loose your 
+                            money no matter how long the process takes.
                            <strong>SO take the BOLD step and be an ONLINE FARMER today.</strong>
                         </p>
                         <p>
