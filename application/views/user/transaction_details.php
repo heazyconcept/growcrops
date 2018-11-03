@@ -28,26 +28,20 @@
            <table class="table table-striped mb0">
                <thead>
                    <tr>
-                       <th>Transaction Ref</th>
-                       <th>Crop</th>
+                       <th>Amount payeable</th>
                        <th>Slot</th>
-                       <th>Amount Paid</th>
-                       <th>Stage</th>
-                       <th>Status</th>
-                       <th>Action</th>
+                       <th>Payment Update</th>
+                       <th>Date Updated</th>
                    </tr>
                </thead>
 
                <tbody>
                  <?php foreach ($transaction_details as $transaction): ?>
                    <tr>
-                       <td><?php echo $transaction->transaction_ref; ?></td>
-                       <td><?php echo $transaction->crop_name; ?></td>
-                       <td><?php echo $transaction->slot; ?></td>
-                       <td>&#8358;<?php echo number_format($transaction->amount, 2); ?></td>
-                       <td><?php echo strtoupper($transaction->stage); ?></td>
-                       <td><?php echo strtoupper($transaction->status); ?></td>
-                       <td><?php if (  $transaction->status == 'awaiting_payment') { ?>  <a class="user_pay" href="<?php echo base_url('user/pay/'). $transaction->id; ?>">Pay Now</a> <?php } ?></td>
+                       <td>&#8358;<?php echo number_format($transaction->AmountPayeable, 2); ?></td>
+                       <td><?php echo $transaction->Slot; ?></td>
+                       <td><?php echo $transaction->PaymentUpdate; ?></td>
+                       <td><?php echo $this->utilities->formatDate($transaction->DateCreated); ?></td>
                    </tr>
                  <?php endforeach; ?>
                </tbody>

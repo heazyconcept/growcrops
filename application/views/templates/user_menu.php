@@ -12,12 +12,10 @@
 </div><!-- /.widget -->
  <div class="widget">
 <ul class="menu-advanced">
-    <li><a href="<?php echo base_url('user/crops_planted'); ?>"><i class="fa fa-pencil"></i> Crops Planted</a></li>
+    <li class=""><a href="<?php echo base_url('user'); ?>"><i class="fa fa-user"></i> Dashboard</a></li>
     <li class=""><a href="<?php echo base_url('home/crops'); ?>"><i class="fa fa-user"></i> View all Crops</a></li>
     <li><a href="<?php echo base_url('user/change_profile_details'); ?>"><i class="fa fa-user"></i> Change Profile Details</a></li>
     <li><a href="<?php echo base_url('user/transaction_details'); ?>"><i class="fa fa-sign-out"></i> My Transaction Details</a></li>
-    <li><a href="<?php echo base_url('user/pending'); ?>"><i class="fa fa-sign-out"></i> Pending Transactions</a></li>
-    <li><a href="<?php echo base_url('user/invoice'); ?>"><i class="fa fa-sign-out"></i> My Invoice</a></li>
 </ul>
 </div><!-- /.widget -->
 <script type="text/javascript">

@@ -10,17 +10,17 @@ class User extends CI_Controller {
       redirect('/auth/login');
     }
     $user_id = $this->session->userdata('user_id');
-    $query = "SELECT * FROM  invested_crop WHERE user_id = $user_id AND stage != 'four'";
-    $data['invested_crop'] = $this->all_conn->custom_query('select', $query);
-		if (empty($data['invested_crop'])) {
-			$query = "SELECT * FROM  crop_invested WHERE user_id = $user_id AND stage != 'four'";
-	    $data['invested_crop'] = $this->all_conn->custom_query('select', $query);
-		}
-
-		$query_transaction =  "SELECT * FROM transactions WHERE user_id	= $user_id AND status = 'paid' ORDER BY transaction_date DESC LIMIT 1";
-    $data['transaction'] = $this->all_conn->custom_query('select', $query_transaction);
+    $query = "SELECT * FROM user_dashboard WHERE UserId = $user_id ORDER BY DateCreated DESC LIMIT 1";
+    $dbOptions = array(
+      "my_query" => $query,
+      "query_action" => "select"
+    );
+    $result = $this->connectDb->custom_query(json_encode($dbOptions));
+    if(!empty($result)){
+      $data['DashboardStat'] = $result[0];
+    }
     $image_name = $this->all_conn->select_data('user_extra_details', 'image_name', 'user_id', $this->session->userdata('user_id'));
-    if ($image_name) {
+    if (!empty($image_name)) {
       $data['image_url'] = base_url('upload/profile_pic/').$image_name[0]->image_name;
     }else {
       $data['image_url'] = asset_url('img/agent-2.jpg');
@@ -60,7 +60,7 @@ class User extends CI_Controller {
     }else {
       $data['image_url'] = asset_url('img/agent-2.jpg');
     }
-    $query = "SELECT transactions.*, crops.crop_name FROM transactions INNER JOIN crops ON transactions.crop_id = crops.id WHERE transactions.user_id = $user_id ORDER BY transactions.status ASC";
+    $query = "SELECT * FROM user_dashboard WHERE UserId = $user_id ORDER BY DateCreated DESC";
     $data['transaction_details']  = $this->all_conn->custom_query('select', $query);
     $data['page_title'] = 'User Transaction History - Grow Crops Online';
     $data['user_data'] = $this->session->userdata;
