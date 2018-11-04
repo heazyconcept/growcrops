@@ -27,7 +27,7 @@
            <div class="col-md-4 col-xs-6 card-item">
                <div class="card-text">
                  <span class="dash-value">&#8358;<?php echo number_format($DashboardStat->AmountPayeable, 2); ?></span>
-                 <span class="dash-keys"> Amount Payeable</span>
+                 <span class="dash-keys"> Total Amount Paid</span>
                </div>
            </div>
            <div class="col-md-4 col-xs-6 card-item">

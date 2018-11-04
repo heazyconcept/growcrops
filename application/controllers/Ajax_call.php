@@ -309,7 +309,7 @@ class Ajax_call extends CI_Controller {
 				"Amount" => number_format($amount, 2),
 				"link" => base_url("receipt/view/" . $reference)
 			);
-			$this->load->library("notificationmail");
+			$this->load->library("notificationMail");
 			$this->notificationmail->send_mail(json_encode($mailOptions));
 			if($payment_type == "Paystack"){
 				$mailOptions = array(
@@ -321,7 +321,7 @@ class Ajax_call extends CI_Controller {
 					"transactionRef" => $reference,
 					"confirmedDate" => $this->utilities->formatDate($this->all_conn->fetch_time())
 				);
-				$this->load->library("receiptmail");
+				$this->load->library("receiptMail");
 				$this->receiptmail->send_mail(json_encode($mailOptions));
 			}
 			echo 1;

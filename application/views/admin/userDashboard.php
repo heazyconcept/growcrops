@@ -49,7 +49,7 @@
                                                                         <input type="text" class="form-control" id="slot"  name="Slot" placeholder="Number of slot bought">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="amount">Amount Payeable</label>
+                                                                        <label for="amount">Total Amount Paid</label>
                                                                         <input type="text" class="form-control" id="amount"  name="AmountPayeable" placeholder="Amount payeable">
                                                                     </div>
                                                                     <div class="form-group">
