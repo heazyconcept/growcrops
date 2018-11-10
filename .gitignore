@@ -9,6 +9,7 @@ application/logs/*
 !application/*/.htaccess
 upload
 application.zip
+.vscode
 
 composer.lock
 

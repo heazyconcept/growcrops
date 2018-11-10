@@ -169,11 +169,13 @@
             </div>
          </div>
          <div class="container">
-            <div class="block background-white background-transparent-image fullwidth">
-               <div class="page-header">
+            <div class="block background-white background-transparent-image fullwidth whychooseus_wrapper">
+            <div class="overlay_whychooseus">
+            </div>
+            <div class="whuchoose-design">
+            <div class="page-header">
                   <h1>Why Join Grow Crops Online</h1>
                </div>
-               <!-- /.page-header -->
                <div class="why-choose-us">
                   <div class="row">
                      <div class="col-md-3 col-sm-6 col-xs-12">
@@ -230,6 +232,11 @@
                      </div>
                   </div>
                </div>
+
+            </div>
+               
+               <!-- /.page-header -->
+               
             </div>
             <div class="block background-white fullwidth">
                <div class="row">

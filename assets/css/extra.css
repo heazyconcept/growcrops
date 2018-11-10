@@ -154,7 +154,7 @@ a.all-action {
     box-shadow: 1px 1px 1px 1px #00000014;
 }
 .background-transparent-image {
-    background-image: url(../img/choose_banner.jpg);
+    background-image: url(../img/ugwu.jpg);
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -784,7 +784,8 @@ h2.single-crop-title {
 }
 .important_information_section {
     padding: 100px 0;
-    background: #84bd3724;
+    background: url(../img/pattern.jpg);
+    background-size: 5%;
 }
 .home_information h3 {
     font-family: "Montserrat";
@@ -956,6 +957,14 @@ h2.widgettitle {
 .schedule_section p {
     font-size: 14px;
     font-family: "Montserrat";
+}
+.whychooseus_wrapper {
+    position: relative;
+}
+.whuchoose-design {
+    padding: 20px;
+    background: #ffffffbd;
+    border-radius: 10px;
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
   h4.featured-in-header {
