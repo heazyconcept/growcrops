@@ -117,9 +117,10 @@
          swal('Limit Exceeded', 'Your have exceeded the maximum number of slot per user', 'error');
          return;
        }
+    
        if ($('#payment_options').val() == 'online') {
          var handler = PaystackPop.setup({
-           key: 'pk_test_6a7d253f73f251dd88becbad2430a3760fe8f309',
+           key: 'pk_live_ae5f3965762f3d31350411562dd000bfa1821f7c',
            email: '<?php echo $this->session->userdata('email_address'); ?>',
            amount: $('#final_total').val() * 100,
            ref: 'ELB000'+Math.floor((Math.random() * 1000000000) + 1),

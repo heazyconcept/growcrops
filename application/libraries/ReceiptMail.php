@@ -12,22 +12,22 @@ class ReceiptMail
     
     $CI =& get_instance();
 
+    $config['protocol'] ='smtp';
+    $config['smtp_port'] ='465';
+    $config['smtp_crypto'] ='ssl';
+    $config['priority'] ='1';
+    $config['smtp_host'] ='server1.greenmousetech.com';
+    $config['smtp_user'] ='no-reply@growcropsonline.com';
+    $config['smtp_pass'] = 'Growcrops_2018';
+    $config['mailtype'] = 'html';
     // $config['protocol'] ='smtp';
     // $config['smtp_port'] ='465';
     // $config['smtp_crypto'] ='ssl';
     // $config['priority'] ='1';
-    // $config['smtp_host'] ='server1.greenmousetech.com';
-    // $config['smtp_user'] ='no-reply@growcropsonline.com';
-    // $config['smtp_pass'] = 'Growcrops_2018';
+    // $config['smtp_host'] ='osigla.com.ng';
+    // $config['smtp_user'] ='no-reply@osigla.com.ng';
+    // $config['smtp_pass'] = 'Osigla123.';
     // $config['mailtype'] = 'html';
-    $config['protocol'] ='smtp';
-    $config['smtp_port'] ='26';
-    // $config['smtp_crypto'] ='ssl';
-    $config['priority'] ='1';
-    $config['smtp_host'] ='mail.osigla.com.ng';
-    $config['smtp_user'] ='no-reply@osigla.com.ng';
-    $config['smtp_pass'] = 'Osigla123.';
-    $config['mailtype'] = 'html';
     $CI->email->initialize($config);
   $CI->email->from('no-reply@growcropsonline.com', $mailOptions->name);
   $CI->email->to($mailOptions->to);

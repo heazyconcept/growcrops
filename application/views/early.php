@@ -107,7 +107,7 @@
                            </div>
                            <div class="day clearfix">
                               <span class="name">Manure  </span>
-                              <span class="hours">&#8358; <?php echo number_format(16800, 2); ?></span>
+                              <span class="hours">&#8358; <?php echo number_format(26800, 2); ?></span>
                            </div>
                            <div class="day clearfix">
                               <span class="name">Harvest (per harvest) </span>
@@ -115,7 +115,7 @@
                            </div>
                            <div class="day clearfix">
                               <span class="name">Farm inputs total </span>
-                              <span class="hours">&#8358; <?php echo number_format(177500, 2); ?></span>
+                              <span class="hours">&#8358; <?php echo number_format(187500, 2); ?></span>
                            </div>
                            <div class="day clearfix">
                               <span class="name">Admin  </span>
@@ -123,7 +123,7 @@
                            </div>
                            <div class="day clearfix">
                               <span class="name">Plus admin </span>
-                              <span class="hours">&#8358; <?php echo number_format(187500, 2); ?></span>
+                              <span class="hours">&#8358; <?php echo number_format(197500, 2); ?></span>
                            </div>
                            <div class="day clearfix">
                               <span class="name">Projected Income</span>

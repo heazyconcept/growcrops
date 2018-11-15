@@ -27,7 +27,43 @@ class Admin extends CI_Controller {
 			$data['all_users'] = $this->all_conn->count_data('users');
 			$data['crops'] = $this->all_conn->count_data('crops');
 			// $transactions = $this->all_conn->select_data('transactions', '', 'status', 'paid');
+
 			$data['total_transaction'] = 0;
+			$dbOption = array(
+				"table_name" => "transactions",
+				"my_query" => "SELECT SUM(Amount) as Paystack_amount FROM transactions where PaymentType = 'Paystack'",
+				"query_action" => "select"
+			);
+			$paystack = $this->connectDb->custom_query(json_encode($dbOption));
+			$data['paystack'] = $paystack[0]->Paystack_amount;
+			$dbOption = array(
+				"table_name" => "transactions",
+				"my_query" => "SELECT SUM(Amount) as transfer_amount FROM transactions where PaymentType = 'bank_transfer'",
+				"query_action" => "select"
+			);
+			$bankTransfer = $this->connectDb->custom_query(json_encode($dbOption));
+			$data['bank_transfer'] = $bankTransfer[0]->transfer_amount;
+			$dbOption = array(
+				"table_name" => "transactions",
+				"my_query" => "SELECT SUM(Amount) as dailyamount FROM transactions where DATE(DateCreated) = CURDATE()",
+				"query_action" => "select"
+			);
+			$dailyAmount = $this->connectDb->custom_query(json_encode($dbOption));
+			$data['dailyAmount'] = $dailyAmount[0]->dailyamount;
+			$dbOption = array(
+				"table_name" => "transactions",
+				"my_query" => "SELECT SUM(Amount) as verifiedAmount FROM transactions where paymentStatus = 'Confirmed'",
+				"query_action" => "select"
+			);
+			$verifiedAmount = $this->connectDb->custom_query(json_encode($dbOption));
+			$data['verifiedAmount'] = $verifiedAmount[0]->verifiedAmount;
+			$dbOption = array(
+				"table_name" => "transactions",
+				"my_query" => "SELECT SUM(Amount) as unverifiedAmount FROM transactions where paymentStatus = 'Not Confirmed'",
+				"query_action" => "select"
+			);
+			$unverifiedAmount = $this->connectDb->custom_query(json_encode($dbOption));
+			$data['unverifiedAmount'] = $unverifiedAmount[0]->unverifiedAmount;
 			// foreach ($transactions as $tran) {
 			// 	$data['total_transaction'] += $tran->amount;
 
@@ -397,6 +433,18 @@ class Admin extends CI_Controller {
 		$data['user_extras'] = $this->all_conn->select_data('user_extra_details', '', 'user_id', $this->session->userdata('user_id'));
 		$data['page_title'] = 'Admin - User Dasboard - Grow Crops Online';
 		$this->load->admin_template('admin/userDashboard', $data);
+	} 
+	public function CreateEmployees(){
+
+		if (empty($this->session->userdata('user_id'))) {
+			redirect('/admin');
+		}elseif ($this->session->userdata('user_role') == 1) {
+			redirect('/user');
+		}
+		$data['menu'] = 'employees';
+		$data['user_extras'] = $this->all_conn->select_data('user_extra_details', '', 'user_id', $this->session->userdata('user_id'));
+		$data['page_title'] = 'Admin - Employees - Grow Crops Online';
+		$this->load->admin_template('admin/employees', $data);
 	}
 
 }

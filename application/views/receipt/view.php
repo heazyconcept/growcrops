@@ -418,7 +418,7 @@ $vat = $totalAmount * 0.05;
                                                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
                                                 <div style="color:#555555;line-height:120%;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
                                                     <div style="font-size:12px;line-height:14px;text-align:right;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;">
-                                                        <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: right">080xxxxxxxx</p>
+                                                        <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: right">‭0902 405 7439</p>
                                                     </div>
                                                 </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->

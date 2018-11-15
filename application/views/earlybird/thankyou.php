@@ -11,9 +11,17 @@
               <div class="earlybird_wrapper">
                 <div class="thankyou_message">
                   <h2>Transaction Acknowledged</h2>
-                  kindly do a transfer to the account details below, Then send us a mail to info@growcropsonline.
-                  <br>
-                  Your investment will reflect on your dashboard once your payment is confirmed
+                  <p>
+                  Kindly do a transfer to the account details below and then send an 
+                  email to : info@growcropsonline.com.
+                  </p>
+                  <p>
+                  Once payment is confirmed, payment details and booking will reflect on your dashboard. 
+                  </p>
+                  <p>
+                  NOTE THAT: All transactions are uploaded to dashboards EVERY FRIDAY BY MIDNIGHT. 
+                  So, KINDLY be patient for transactions to be uploaded every Friday Midnight
+                  </p>
                 </div>
 
                   <div class="p20 details_early row">

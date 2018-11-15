@@ -1,7 +1,17 @@
+<style>
+.date-search {
+    padding: 29px 10px 29px;
+    background: #cccccc2e;
+}
+.btn-search{
+    display: block;
+    width: 100%;
+}
+</style>
 <div class="main">
     <div class="outer-admin">
         <div class="wrapper-admin">
-            <?php $this->load->view('templates/admin_menu'); ?>
+            <?php $this->load->view('templates/admin_menu');?>
 
             <div class="content-admin">
                 <div class="content-admin-wrapper">
@@ -65,6 +75,19 @@
     <div class="col-sm-12 col-md-12">
       <div class="background-white p20 mb50">
           <table class="table table-striped mb0 table-pending">
+          <div class="date-search">
+          <div class="row">
+          <div class="col-md-5">
+          <input type="text" class="form-control datepicker" id="dateStart" placeholder="Start date">
+          </div>
+          <div class="col-md-5">
+          <input type="text" class="form-control datepicker" id="dateEnd" placeholder="Start date">
+          </div>
+          <div class="col-md-2">
+          <button type="button" class="btn btn-info btn-search">Search</button>
+          </div>
+          </div>
+          </div>
 
               <thead>
                   <tr>
@@ -76,7 +99,7 @@
                       <th>Slot</th>
                       <th>Payment Type</th>
                       <th>Action/Status</th>
-                      
+
                   </tr>
               </thead>
 
@@ -102,14 +125,28 @@
                     </div><!-- /.content-admin-main -->
                     <script type="text/javascript">
                       $(document).ready(function () {
-                        var PaymentTable =   $('.table-pending').DataTable({
+                        $( ".datepicker" ).datepicker();
+                        var PaymentTable;
+                        var dateSearch = {dateSearch: false, startDate: "", endDate: "" };
+
+                        PaymentTable =   $('.table-pending').DataTable({
+                          "Destroy": true,
                           "pageLength": 50,
                           "processing": true,
                           "serverSide": true,
                           "ajax":{
                               "url": "<?php echo base_url("fetch_tables/transactions") ?>",
                               "dataType": "json",
-                              "type": "GET"
+                              "type": "GET",
+                              "data": function ( d ) {
+                                  if(!$("#dateStart").val()){
+                                      d.dateSearch = 0;
+                                  }else{
+                                    d.dateSearch = 1;
+                                    d.startDate = $("#dateStart").val();
+                                    d.endDate = $("#dateEnd").val();
+                                  }
+                                }
                                             },
                            "columns": [
                                    { "data": "transaction_ref" },
@@ -120,13 +157,22 @@
                                    { "data": "slot" },
                                    { "data": "payment_type" },
                                    { "data": "action" }
-                                  
+
                                 ],
                                 dom: 'Bfrtip',
                                 buttons: [
                                     'copy', 'csv', 'excel', 'pdf', 'print'
                                 ]
                           });
+                          $(".btn-search").click(function(){
+                            dateSearch.startDate = $("#dateStart").val();
+                            dateSearch.endDate = $("#dateEnd").val();
+                            dateSearch.dateSearch = true;
+                            console.log(dateSearch);
+                            
+                            PaymentTable.ajax.reload();
+                        })
 
                       })
+
                     </script>

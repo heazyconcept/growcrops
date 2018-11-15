@@ -29,12 +29,84 @@
                         </div><!-- /.statusbox-actions -->
                     </div><!-- /.statusbox -->
                 </div>
+                <div class="col-sm-4">
+                    <div class="statusbox">
+                        <h2>Total Crops</h2>
+                        <div class="statusbox-content">
+                            <strong><?php echo $crops; ?></strong>
+                            <span>Updated <?php echo date('j/n/Y'); ?></span>
+                        </div><!-- /.statusbox-content -->
+
+                        <div class="statusbox-actions">
+                            <a href="#"><i class="fa fa-eye"></i></a>
+
+                        </div><!-- /.statusbox-actions -->
+                    </div>
+                </div>
+                <?php  if($this->session->userdata('designation') != 'employee'): ?>
+                <div class="col-sm-4">
+                    <div class="statusbox">
+                        <h2>Daily Transaction</h2>
+                        <div class="statusbox-content">
+                            <strong>&#8358;<?php echo number_format($dailyAmount, 2) ?></strong>
+                            <span>Updated <?php echo date('j/n/Y'); ?></span>
+                        </div><!-- /.statusbox-content -->
+
+                        <div class="statusbox-actions">
+                            <a href="#"><i class="fa fa-eye"></i></a>
+
+                        </div><!-- /.statusbox-actions -->
+                    </div>
+                </div>
 
                 <div class="col-sm-4">
                     <div class="statusbox">
-                        <h2>Total Investment</h2>
+                        <h2>Total Paystack Transaction</h2>
                         <div class="statusbox-content">
-                            <strong>&#8358;<?php echo number_format($total_transaction, 2) ?></strong>
+                            <strong>&#8358;<?php echo number_format($paystack, 2) ?></strong>
+                            <span>Updated <?php echo date('j/n/Y'); ?></span>
+                        </div><!-- /.statusbox-content -->
+
+                        <div class="statusbox-actions">
+                            <a href="#"><i class="fa fa-eye"></i></a>
+
+                        </div><!-- /.statusbox-actions -->
+                    </div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <div class="statusbox">
+                        <h2>Total Bank Transfer</h2>
+                        <div class="statusbox-content">
+                            <strong>&#8358;<?php echo number_format($bank_transfer, 2) ?></strong>
+                            <span>Updated <?php echo date('j/n/Y'); ?></span>
+                        </div><!-- /.statusbox-content -->
+
+                        <div class="statusbox-actions">
+                            <a href="#"><i class="fa fa-eye"></i></a>
+
+                        </div><!-- /.statusbox-actions -->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="statusbox">
+                        <h2>Verified Amount</h2>
+                        <div class="statusbox-content">
+                            <strong>&#8358;<?php echo number_format($verifiedAmount, 2) ?></strong>
+                            <span>Updated <?php echo date('j/n/Y'); ?></span>
+                        </div><!-- /.statusbox-content -->
+
+                        <div class="statusbox-actions">
+                            <a href="#"><i class="fa fa-eye"></i></a>
+
+                        </div><!-- /.statusbox-actions -->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="statusbox">
+                        <h2>Unverified Amount</h2>
+                        <div class="statusbox-content">
+                            <strong>&#8358;<?php echo number_format($unverifiedAmount, 2) ?></strong>
                             <span>Updated <?php echo date('j/n/Y'); ?></span>
                         </div><!-- /.statusbox-content -->
 
@@ -58,20 +130,8 @@
                         </div><!-- /.statusbox-actions -->
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="statusbox">
-                        <h2>Total Crops</h2>
-                        <div class="statusbox-content">
-                            <strong><?php echo $crops; ?></strong>
-                            <span>Updated <?php echo date('j/n/Y'); ?></span>
-                        </div><!-- /.statusbox-content -->
-
-                        <div class="statusbox-actions">
-                            <a href="#"><i class="fa fa-eye"></i></a>
-
-                        </div><!-- /.statusbox-actions -->
-                    </div>
-                </div>
+<?php endif; ?>
+                
             </div><!-- /.row -->
         </div><!-- /.col-* -->
 

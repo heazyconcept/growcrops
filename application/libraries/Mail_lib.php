@@ -128,6 +128,11 @@ class Mail_lib
         $mail_body['other_message'] = '<p style="margin:0 0 16px">Thanks for creating account on Growcrops Online. Your username is <strong> ' .$other_values['username']. '</strong></p>
         <p style="margin:0 0 16px">kindly click ' .$other_values['activation'].' to activate your account.</p>';
 
+      }elseif ($message_type == 'employee') {
+        $mail_body['dear'] = $other_values['first_name'] . ' '. $other_values['last_name'];
+        $mail_body['other_message'] = '<p style="margin:0 0 16px">You have been created as an admin on Growcrops Online. Your username is <strong> ' .$other_values['email_address']. '</strong> <br> your password is: <strong>'.$other_values['password'].'</strong></p>
+        <p style="margin:0 0 16px">kindly click <a href="' .base_url('admin').'" target="_blank">here</a> to login to the admin dashboard.</p>';
+
       }elseif ($message_type == 'transaction') {
         $mail_body['dear'] = $other_values['first_name'] . ' '. $other_values['last_name'];
         $mail_body['other_message'] = '<p style="margin:0 0 16px">This is to confirm the booking you just made for '.$other_values['crop_name'].' with the following details</p>

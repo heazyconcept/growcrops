@@ -133,6 +133,7 @@ class Ajax_call extends CI_Controller {
 				'state' =>$user_data[0]->state,
 				'city' =>$user_data[0]->city,
 				'user_role' =>$user_data[0]->user_role,
+				'designation' =>$user_data[0]->designation,
 				'email_address' =>$user_data[0]->email_address,
 				'phone_number' =>$user_data[0]->phone_number,
 			);
@@ -909,6 +910,58 @@ class Ajax_call extends CI_Controller {
 			echo "0";
 		}
 	
+	}
+	public function addEmployee(){
+		foreach ($_POST as $key => $value) {
+			$$key = $value;
+		}
+		$check_data = array(
+			'email_address' => $email_address,
+			'phone_number' => $phone_number,
+		);
+		$exist = $this->all_conn->check_exist('users', $check_data, 'OR' );
+		if ($exist > 0) {
+			$return_data = array(
+				'mess_type' => '-5'
+			);
+			$return_data = json_encode($return_data);
+			echo $return_data;
+			return;
+
+		}
+		$clear_password = bin2hex(openssl_random_pseudo_bytes(8));
+		$salt = sha1($clear_password);
+		$password = $salt.$clear_password;
+		$password = md5($password);
+		$user_data = array(
+			'user_role' => 2,
+			'designation' => 'employee',
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'email_address' => $email_address,
+			'phone_number' => $phone_number,
+			'password' => $password,
+			'salt' => $salt,
+			'date_created' => date("Y-m-d H:i:s"),
+		);
+		$user_id =  $this->all_conn->insert_data('users', $user_data);
+		if ($user_id) {
+			$other_values = array(
+				'email_address' => $email_address,
+				'first_name' => $first_name,
+				'last_name' => $last_name,
+				'password' => $clear_password ,
+			);
+			$user_data = $this->all_conn->select_data('users', '', 'id', $user_id);
+		$this->mail_lib->send_mail('growcropsonline', $email_address, 'User Creation', 'employee', $other_values, 'user');
+		$return_data = array(
+			'mess_type' => '1',
+		);
+		$return_data = json_encode($return_data);
+		echo $return_data;
+		}else {
+			echo 0;
+		}
 	}
 
 }

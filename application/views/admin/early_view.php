@@ -42,9 +42,9 @@
       <?php if ($all_early): ?>
         <?php foreach ($all_early as $early): ?>
           <tr>
-            <td><a class="user" href="<?php echo base_url('admin/earlybird_edit/'). $early->id; ?>"><img src="<?php echo asset_url('img/').$early->featured_image; ?>" alt=""></a></td>
+            <td><a class="user" href="<?php echo base_url('admin/earlybird_activate/'). $early->id; ?>"><img src="<?php echo asset_url('img/').$early->featured_image; ?>" alt=""></a></td>
             <td class="hidden-xs visible-sm visible-md visible-lg">
-                <h2 class="crop_name"><a href="<?php echo base_url('admin/earlybird_edit/'). $early->id; ?>"><?php echo $early->crop_name ?></a></h2>
+                <h2 class="crop_name"><a href="<?php echo base_url('admin/earlybird_activate/'). $early->id; ?>"><?php echo $early->crop_name ?></a></h2>
             </td>
             <td class="act_col"> <?php echo ($early->is_early)? 'Early Bird Activated': 'Early Bird Not Activated' ?>
             </td>

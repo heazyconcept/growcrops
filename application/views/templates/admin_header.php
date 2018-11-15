@@ -23,11 +23,13 @@
   <link rel='stylesheet' href="<?php echo asset_url('css/on-off-switch.css') ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo asset_url('css/datatables.bootstrap.min.css'); ?>" />
   <link rel="stylesheet" type="text/css" href="<?php echo asset_url('css/buttons.datatables.min.css'); ?>" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel='stylesheet' href="<?php echo asset_url('css/admin.css') ?>">
 
   <script type='text/javascript' src="<?php echo asset_url('js/pace.min.js'); ?>"></script>
 
   <script type='text/javascript' src="<?php echo asset_url('js/jquery.js'); ?>"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="<?php echo asset_url('js/on-off-switch.js'); ?>"></script>
   <script type='text/javascript' src="<?php echo asset_url('js/on-off-switch-onload.js'); ?>"></script>

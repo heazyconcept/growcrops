@@ -7,6 +7,14 @@
                 <span class="subtitle">View Site Overview</span>
             </a>
         </li>
+        <li class="<?php echo ($menu == 'user_dashboard')? 'active': ''; ?>">
+            <a href="<?php echo base_url('admin/userDashboard') ?>">
+                <span class="icon"><i class="fa fa-pagelines"></i></span>
+                <span class="title">User Dashbaord</span>
+                <span class="subtitle">Manage User Dashboard</span>
+            </a>
+        </li>
+        <?php if($this->session->userdata('designation') != 'employee'): ?>
 
         <li class="<?php echo ($menu == 'crops')? 'active': ''; ?>">
             <a href="<?php echo base_url('admin/crops') ?>">
@@ -15,13 +23,7 @@
                 <span class="subtitle">Manage all crops</span>
             </a>
         </li>
-        <li class="<?php echo ($menu == 'user_dashboard')? 'active': ''; ?>">
-            <a href="<?php echo base_url('admin/userDashboard') ?>">
-                <span class="icon"><i class="fa fa-pagelines"></i></span>
-                <span class="title">User Dashbaord</span>
-                <span class="subtitle">Manage User Dashboard</span>
-            </a>
-        </li>
+        
 
         <!-- <li class="<?php //echo ($menu == 'invoice_schedule')? 'active': ''; ?>">
             <a href="<?php //echo base_url('admin/invoice_schedule'); ?>">
@@ -59,13 +61,13 @@
                   <span class="subtitle">View all registered users</span>
             </a>
         </li>
-        <!-- <li class="<?php //echo ($menu == 'manual_booking')? 'active': ''; ?>">
-            <a href="<?php //echo base_url('admin/manual_booking'); ?>">
+        <li class="<?php echo ($menu == 'employees')? 'active': ''; ?>">
+            <a href="<?php echo base_url('admin/CreateEmployees'); ?>">
                 <span class="icon"><i class="fa fa-users"></i></span>
-                <span class="title">Manual Booking</span>
-                  <span class="subtitle">Book paid transactions manually</span>
+                <span class="title">Employees</span>
+                  <span class="subtitle">Create and manage Employees</span>
             </a>
-        </li> -->
+        </li>
         <li class="<?php echo ($menu == 'post')? 'active': ''; ?>">
             <a href="<?php echo base_url('admin/post'); ?>">
                 <span class="icon"><i class="fa fa-pencil-square-o"></i></span>
@@ -87,6 +89,8 @@
                   <span class="subtitle">Manage your website</span>
             </a>
         </li>
+<?php endif; ?>
+        
 
         <!-- <li >
             <a href="admin-notifications.html">
