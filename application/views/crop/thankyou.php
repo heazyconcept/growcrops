@@ -27,11 +27,11 @@
                       <div class="working-hours col-md-7">
                           <div class="day clearfix">
                             <span class="name">Account name: </span>
-                            <span class="hours">INTERACTIVE CONSULTANTS</span>
+                            <span class="hours"> GC Products and production services</span>
                           </div>
                           <div class="day clearfix">
                             <span class="name">Account Number </span>
-                            <span class="hours">1011890765</span>
+                            <span class="hours">1016066334</span>
                           </div>
                           <div class="day clearfix">
                             <span class="name">Bank: </span>

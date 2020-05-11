@@ -13,7 +13,7 @@ class Mail_lib
     $config['smtp_port'] ='465';
     $config['smtp_crypto'] ='ssl';
     $config['priority'] ='1';
-    $config['smtp_host'] ='server1.greenmousetech.com';
+    $config['smtp_host'] ='growcropsonline.com';
     $config['smtp_user'] ='no-reply@growcropsonline.com';
     $config['smtp_pass'] = 'Growcrops_2018';
     $config['mailtype'] = 'html';
@@ -147,6 +147,10 @@ class Mail_lib
         $mail_body['dear'] = $other_values['email_address'];
         $mail_body['other_message'] = '<p style="margin:0 0 16px">You have requested a password reset. if you have not, kindly ignore this message</p>
         <p style="margin:0 0 16px"> Kindly '.$other_values['reset_link'].' to reset your password </p>';
+      }elseif ($message_type == 'reset_password_admin') {
+        $mail_body['dear'] = $other_values['email_address'];
+        $mail_body['other_message'] = '<p style="margin:0 0 16px">Your password reset is successful you can proceed to login with this password</p>
+        <p style="margin:0 0 16px"> 1111</p><p style="margin:0 0 16px"> Kindly endeavour to change your password once you login</p>';
       }elseif ($message_type == 'invoicing') {
         $mail_body['dear'] = $other_values['first_name'] . ' '. $other_values['last_name'];
         $mail_body['other_message'] = '<p style="margin:0 0 16px">This is to inform you that you are ready to move to the next Cycle for '.$other_values['crop_name'].' with the following details</p>
@@ -159,7 +163,11 @@ class Mail_lib
         $mail_body['dear'] = $other_values['email_address'];
         $mail_body['other_message'] = '<p style="margin:0 0 16px">One more step to go</p>
         <p style="margin:0 0 16px">Kindly '.$other_values['link'].' and get your schedule</p>';
+      }elseif ($message_type == 'certificate') {
+        $mail_body['dear'] = $other_values['email_address'];
+        $mail_body['other_message'] = '<p style="margin:0 0 16px">Your certificate is successfully validated</p>';
       }
+
 
     }
     return $mail_body;

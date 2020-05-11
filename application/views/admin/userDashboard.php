@@ -167,6 +167,7 @@
                                    $("#phone_number").val(value.phone_number);
                                    $("#user_id").val(value.id);
                                    $.post('<?php echo base_url("ajax_call/callUserDashboard/") ?>' + id, function(data){
+                                       console.log(data);
                                        if(data != null || data != undefined || data != ''){
                                         var dashboardData = JSON.parse(data);
                                         console.log(dashboardData);

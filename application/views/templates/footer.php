@@ -14,7 +14,7 @@
 
                 <ul class="contact-info">
               <li><i class="fa fa-map-marker"></i> <span>A 1 Spaces, Suite 203E, City Hall<br> Catholic Mission Street, <br>Island, Lagos</span></li>
-              <li><i class="fa fa-phone"></i> <span>+234 902 405 7439</span>, <span>+234 802 269 4139</span> </li>
+              <li><i class="fa fa-phone"></i> <span>+234 902 405 7439</span>, <span>+234 802 294 139</span> </li>
               <li><i class="fa fa-envelope-o"></i> <span>info@growcropsonline.com</span></li>
             </ul>
             </div><!-- /.col-* -->

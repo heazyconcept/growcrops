@@ -29,6 +29,7 @@
                       <th>Phone Number</th>
                       <th>address</th>
                       <th>State</th>
+                      <th></th>
                   </tr>
               </thead>
 
@@ -73,7 +74,9 @@
                                    { "data": "email_address" },
                                    { "data": "phone_number" },
                                    { "data": "user_address" },
-                                   { "data": "state" }
+                                   { "data": "state" },
+                                   { "data": "action" },
+
                                 ],
                                 dom: 'Bfrtip',
                                 buttons: [
@@ -111,5 +114,25 @@ $('.send_schedule').on('click', function () {
       processData: false
   });
 })
+$(document).on("click", ".pasword-reset", function () { 
+    var userId = $(this).data("id");
+    $.post("<?php echo base_url('adminApi/ResetPassword/"+ userId +"') ?>")
+      .done(function (data) {
+        if (data == 1) {
+          swal("Success", "password changed successfully", "success");
+          setTimeout(function(){
+            location.reload();
+          },2000)
+        }else {
+          swal("Oops", "unknown error occured, kindly contact your administrator", "error");
+        }
+
+        })
+        .fail(function (error) {
+          console.log(error);
+          
+          })
+
+ })
 })
 </script>

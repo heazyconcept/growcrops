@@ -47,9 +47,11 @@ class ReceiptMail
   $mail_body =  str_replace($replace, $with, $template);
   $CI->email->message($mail_body);
   if ($CI->email->send()) {
-    return true;
+    return  $this->email->print_debugger();
+    
   }else {
-    return false;
+   return   $this->email->print_debugger();
+     
   }
 
   

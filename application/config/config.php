@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8585/growcrops';
+$config['base_url'] = 'http://localhost:85/growcrops';
 // $config['base_url'] = 'https://www.growcropsonline.com';
 // $config['base_url'] = 'http://testing.growcropsonline.com';
 

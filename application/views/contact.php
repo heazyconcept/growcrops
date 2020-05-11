@@ -29,7 +29,7 @@
                         <h3>Contacts</h3>
                         <p>
                            <strong>Tel: </strong>+234 902 4057 439 <br>
-                           +234 802 269 4139
+                           +234 802 294 139
                         </p>
                         <p>  <strong>E-mail: </strong> info@growcropsonline.com</p>
                      </div>

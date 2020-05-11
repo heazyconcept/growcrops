@@ -37,6 +37,9 @@ class Crops extends CI_Controller {
     }
     $slug = explode('-', $slug);
     $crop = $data['crop'] = $this->all_conn->select_data('crops', '', 'id', $slug[0] );
+    if( $crop[0]->is_full == 1){
+        redirect("/");
+    }
     $data['page_title'] = $crop[0]->crop_name.' - Grow Crops Online';
 		$data['price'] = $this->all_conn->select_data('stage_one_payment', '', 'crop_id', $slug[0]);
     $this->load->template('crop/checkout', $data);

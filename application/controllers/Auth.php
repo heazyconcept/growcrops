@@ -54,6 +54,11 @@ class Auth extends CI_Controller {
 				}
 		}
 	}
+	public function validatecertificate()
+	{
+		 $data['page_title'] = 'Validate your certificate - Grow Crops Online';
+		$this->load->template('certificate/index', $data);
+	}
 	public function logout()
 	{
 		if ($this->session->userdata('user_role') == 2) {

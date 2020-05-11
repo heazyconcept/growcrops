@@ -144,16 +144,17 @@
            callback: function(response){
              var transactionData = {amount: $('#final_total').val(), reference: response.reference, crop_id:'<?php echo $crop[0]->id; ?>', status: 'Confirmed', slot_amount: $('#slot').val(), payment_type: 'Paystack' };
              $.post("<?php echo base_url('ajax_call/transaction'); ?>", transactionData, function(result){
+                 console.log(result);
              if (result && result != 'exceeded') {
-               console.log(result);
+               
                swal({
                  title: "Your transaction is successful",
                  text: "your transaction ref is "+response.reference,
                  type: "success"
                });
-               setTimeout(() => {
+              setTimeout(() => {
                 location.href = '<?php echo base_url("user") ?>';
-               }, 3000);
+              }, 3000);
             }else {
                swal('Limit Exceeded', 'Your have exceeded the maximum number of slot per user', 'error');
             }
@@ -170,16 +171,17 @@
          var transactionData = {amount: $('#final_total').val(), reference: ref, crop_id:'<?php echo $crop[0]->id; ?>', status: 'Not Confirmed', slot_amount: $('#slot').val(), payment_type: 'bank_transfer' };
          $.post("<?php echo base_url('ajax_call/transaction'); ?>", transactionData)
               .done(function(result){
+                  console.log(result);
          if (result && result != 'exceeded') {
-           console.log(result);
+           
            swal({
              title: "Your transaction is successful",
              text: "your transaction ref is "+ref,
              type: "success"
            });
-           setTimeout(() => {
+          setTimeout(() => {
              location.href = '<?php echo base_url("crops/thankyou/") ?>'+ result;
-           }, 2000);
+          }, 2000);
           
         }else {
            swal('Limit Exceeded', 'Your have exceeded the maximum number of slot per user', 'error');

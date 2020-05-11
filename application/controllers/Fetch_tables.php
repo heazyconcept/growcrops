@@ -149,8 +149,22 @@ class Fetch_tables extends CI_Controller
             transactions.PaymentType LIKE '%$search%'  OR
             crops.crop_name LIKE '%$search%'
             LIMIT $limit OFFSET $start";
+            $query1 = "SELECT transactions.*,
+            users.first_name, users.last_name, users.email_address, crops.crop_name
+            FROM transactions
+            INNER JOIN users on transactions.UserId = users.id
+            INNER JOIN crops ON transactions.CropId = crops.id  WHERE
+            transactions.TransactionRef LIKE '%$search%' OR
+            users.first_name LIKE '%$search%' OR
+            users.last_name LIKE '%$search%'  OR
+            users.email_address LIKE '%$search%'  OR
+            transactions.Amount LIKE '%$search%'  OR
+            transactions.PaymentStatus LIKE '%$search%'  OR
+            transactions.PaymentType LIKE '%$search%'  OR
+            crops.crop_name LIKE '%$search%'";
+            $transaction_count = $this->all_conn->custom_query('select', $query1);
             $transaction = $this->all_conn->custom_query('select', $query);
-            $totalFiltered = count($transaction);
+            $totalFiltered = count($transaction_count);
         }
 
         $data = array();
@@ -235,6 +249,8 @@ class Fetch_tables extends CI_Controller
                 $nestedData['phone_number'] = $obj->phone_number;
                 $nestedData['user_address'] = $obj->user_address;
                 $nestedData['state'] = $obj->state;
+                $nestedData['action'] = '<button class="btn btn-danger pasword-reset" data-id="'. $obj->id.'">Reset Password</button>';
+
 
                 $data[] = $nestedData;
 

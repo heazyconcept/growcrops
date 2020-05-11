@@ -13,10 +13,10 @@ class NotificationMail
     $CI =& get_instance();
 
     $config['protocol'] ='smtp';
-    $config['smtp_port'] ='465';
-    $config['smtp_crypto'] ='ssl';
+    $config['smtp_port'] ='587';
+    // $config['smtp_crypto'] ='ssl';
     $config['priority'] ='1';
-    $config['smtp_host'] ='server1.greenmousetech.com';
+    $config['smtp_host'] ='mail.growcropsonline.com';
     $config['smtp_user'] ='no-reply@growcropsonline.com';
     $config['smtp_pass'] = 'Growcrops_2018';
     $config['mailtype'] = 'html';
@@ -39,9 +39,12 @@ class NotificationMail
   $mail_body =  str_replace($replace, $with, $template);
   $CI->email->message($mail_body);
   if ($CI->email->send()) {
-    return true;
+     return $CI->email->print_debugger();
+    //  true;
+     
   }else {
-    return false;
+    return $CI->email->print_debugger();
+    //  false;
   }
 
   
