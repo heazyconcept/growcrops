@@ -289,21 +289,14 @@
                               entitled, without prejudice to any other rights it may have, to:</span></li>
                      </ol>
                      <p style="text-align: justify; line-height: 21.0pt; margin: 0cm 0cm 7.5pt 0cm;"><span
-                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">22.1 Seek an order for specific
-                           performance against the Defaulting Party; or</span></p>
+                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">22.1 Seek an order for specific performance limited to the terms of the agreement and schedule against the Defaulting Party; or</span></p>
                      <p style="text-align: justify; line-height: 21.0pt; margin: 0cm 0cm 7.5pt 0cm;"><span
-                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">22.2 To claim any damages suffered
-                           by the Aggrieved Party.</span></p>
+                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">22.2 To claim any damages suffered by the Aggrieved Party but such damages are limited to maximum of sum paid as subscription only</span></p>
                      <ol>
                         <li style="margin-bottom: 11.25pt; text-align: justify; tab-stops: list 36.0pt;"><span
-                              style="font-size: 12.0pt; font-family: 'Cambria',serif;">The Owner shall be liable for all
-                              costs and expenses (calculated on an attorney and own client scale) incurred as a result
-                              of or in connection with any breach.</span></li>
+                              style="font-size: 12.0pt; font-family: 'Cambria',serif;">The Owner shall be liable for all costs and expenses (calculated on an attorney and own client scale) incurred as a result of or in connection with any breach.</span></li>
                         <li style="margin-bottom: 11.25pt; text-align: justify; tab-stops: list 36.0pt;"><span
-                              style="font-size: 12.0pt; font-family: 'Cambria',serif;">This Agreement shall in all
-                              respects (including its existence, validity, interpretation, implementation, termination
-                              and enforcement) be governed by the law of Nigeria and limits this agreement to a
-                              commercial transaction.</span></li>
+                              style="font-size: 12.0pt; font-family: 'Cambria',serif;">This Agreement shall in all respects (including its existence, validity, interpretation, implementation, termination and enforcement) be governed by the law of Nigeria and limits this agreement to a commercial transaction. Parties agree that High court in Lagos state only shall have jurisdiction.</span></li>
                         <li style="margin-bottom: 11.25pt; text-align: justify; tab-stops: list 36.0pt;"><span
                               style="font-size: 12.0pt; font-family: 'Cambria',serif;">This Agreement constitutes the
                               whole agreement between the parties relating to the subject matter hereof and supersedes
@@ -520,7 +513,7 @@
                      <p style="text-align: justify; line-height: 21.0pt; margin: 0cm 0cm 7.5pt 0cm;"><span
                            style="font-size: 12.0pt; font-family: 'Cambria',serif;">Consent</span></p>
                      <p style="text-align: justify; line-height: 21.0pt; margin: 0cm 0cm 7.5pt 0cm;"><span
-                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">I understand that all the designs and trademarks are registered to growcropsonline.com and GC products and production services and hereby accept the terms and conditions. I undertake not to copy/duplicate the trademarks and designs directly or indirectly in anyway and understand the legal implications thereof. Should I be found to be in violation of this agreement I understand that I will be held liable for all legal costs incurred by growcropsonline.com and GC products and production for any civil or any legal action.</span></p>
+                           style="font-size: 12.0pt; font-family: 'Cambria',serif;">I understand that all the designs and trademarks are registered to growcropsonline.com and GC products and production services and hereby accept the terms and conditions. I undertake not to copy/duplicate the trademarks and designs directly or indirectly in anyway and understand the legal implications thereof. Should I be found to be in violation of this agreement I understand that I will be held liable for all legal costs incurred by growcropsonline.com and GC products and production for any civil or any legal action.          </span></p>
                   </div>
                   <!-- /.faq -->
                </div>
