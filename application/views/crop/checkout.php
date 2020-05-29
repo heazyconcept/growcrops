@@ -88,6 +88,7 @@
            <div class="detail-actions row">
                <div class="col-sm-12 ">
                    <div class="button_pay_wrapper"> <button type="button" name="button" class="btn btn-primary btn-pay"> Pay Now</button> </div>
+                   <small>By clicking on pay, you agree you have read and agreed to the updated <a href="<?php echo base_url('home/terms_and_condition') ?>">terms and conditions.</a> </small>
                </div><!-- /.col-sm-4 -->
 
 
